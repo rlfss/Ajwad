@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record id="view_stock_picking_serial_import" model="ir.ui.view">
+      <field name="name">Stock Picking Serial Import</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="arch" type="xml">
+          <button name="action_show_details" position="after">
+            <button name="import_serials" string="Import Serials" type="object" icon="fa-file"/>
+          </button>
+      </field>
+    </record>
+  </data>
+</odoo>
