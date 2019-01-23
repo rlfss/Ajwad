@@ -35,5 +35,6 @@ class StockSerial(models.Model):
 			for line in move.move_line_ids:
 				if not line.lot_name:
 					line.lot_name=vals.get('name')
+					line.qty_done=1
 					vals['move_id'] = move.id
-		return super(StockSerial,self).create(vals)
+					return super(StockSerial,self).create(vals)
