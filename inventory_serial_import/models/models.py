@@ -32,12 +32,8 @@ class StockSerial(models.Model):
 	def create(self,vals):
 		move = self.env['stock.move'].browse(self._context.get('move_id'))
 		if move:
-			if move.product_uom_qty > move.quantity_done:
-				move.move_line_ids = [(0,0,{'lot_name':vals.get('name'),
-					'product_id':move.product_id.id,
-					'product_uom_id':move.product_uom.id,
-					'location_id':move.location_id.id,
-					'location_dest_id':move.location_dest_id,
-					'qty_done':1})]
-				vals['move_id'] = move.id
+			for line in move.move_line_ids:
+				if not line.lot_name:
+					line.lot_name=vals.get('name')
+					vals['move_id'] = move.id
 		return super(StockSerial,self).create(vals)
