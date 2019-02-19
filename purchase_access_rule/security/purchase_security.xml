@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>   
-
     <record id="group_purchase_manger_user" model="res.groups">
         <field name="name">Purchase Managere Price &amp; Total</field>
 
     </record>
-
-
 	<record id="purchase_order_form_inherit" model="ir.ui.view">
 		<field name="name">purchase.order</field>
 		<field name="model">purchase.order</field>
@@ -20,8 +17,4 @@
             </xpath>
 		</field>
 	</record>
-
-
-
-
 </odoo>    
