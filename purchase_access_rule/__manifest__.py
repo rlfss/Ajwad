@@ -5,8 +5,8 @@
 	'category':'Purchase',
 	'depends': ['purchase'],
 	'data': [
+		'security/purchase_security.xml',
 		'security/ir.model.access.csv',
-		'security/purchase_security.xml'
 		],		
 	'installable': True,
 	'license': 'OEEL-1',
