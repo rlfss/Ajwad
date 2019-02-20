@@ -15,6 +15,16 @@
             <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
                 <attribute name="groups">purchase_access_rule.group_purchase_manger_user</attribute>
             </xpath>
+            <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='taxes_id']" position="attributes">
+                <attribute name="groups">purchase_access_rule.group_purchase_manger_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                <attribute name="groups">purchase_access_rule.group_purchase_manger_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='amount_tax']" position="attributes">
+                <attribute name="groups">purchase_access_rule.group_purchase_manger_user</attribute>
+            </xpath>
+
 		</field>
 	</record>
 </odoo>    
