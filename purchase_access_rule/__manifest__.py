@@ -2,7 +2,6 @@
 	'name': "Purchase Access Rule",
 	'summary': "Access rule for purchase order and RFQ",
 	'auther': "Muram Makkawi",
-        'version': "0.1.1",
 	'category':'Purchase',
 	'depends': ['purchase'],
 	'data': [
