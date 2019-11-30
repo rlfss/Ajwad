@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- <record id="mt_stock_landed_cost_open" model="mail.message.subtype">
+            <field name="name">Done</field>
+            <field name="res_model">stock.landed.cost</field>
+            <field name="description">Landed cost validated</field>
+        </record> -->
+
+        <record id="seq_vehicle_delivery" model="ir.sequence">
+            <field name="name">Vehicle Delivery</field>
+            <field name="code">vehicle.delivery.transfer</field>
+            <field name="prefix">VD/%(year)s/</field>
+            <field name="padding">4</field>
+        </record> 
+
+        <record id="seq_vehicle_delivery_check_report" model="ir.sequence">
+            <field name="name">Vehicle Delivery Check Report</field>
+            <field name="code">vehicle.delivery.lines</field>
+            <field name="prefix">VDC/%(year)s/</field>
+            <field name="padding">4</field>
+        </record>     
+    </data>
+</odoo>

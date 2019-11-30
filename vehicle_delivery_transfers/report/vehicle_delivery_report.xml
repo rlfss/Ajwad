@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="vehicle_delivery_report_report_id">
+                <t t-foreach="docs" t-as="doc">
+
+                 <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+            <div class="col-xs-12">
+                   <center> <h2  style='text-align: center;  color:#616161; font-weight:bold;'>Vehicle Delivery Report</h2></center>
+                    <br/>
+                    <br/>
+                    <br/>
+            </div>
+
+
+                    <div class="page">
+
+                    <div class="row">
+
+                        <div class="col-sm-9" style="width:50%">
+                        <h5>On the date <span t-esc="doc.date"/>, and in the company's main office, <span t-esc="doc.partner_id.name"/>
+                        received  <span t-esc="doc.amount_total"/> cars in perfect condition and with no flaws. Details as shown in the table below.    </h5>
+                        </div>
+
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <br/>
+
+
+                    <table class="col-xs-9 table table-bordered" style='border-style: solid;  border-color:#616161; border-width:2px;padding:2px;width: 100%;'>
+                        <tr class="active">
+                            <td><strong>Vehicle Model</strong></td>
+                            <td><strong>Quantity</strong></td>
+                            <td><strong>Lot/Serial Number</strong></td>
+                            <td><strong>Horsepower</strong></td>
+                            <td><strong>Color</strong></td>
+                        </tr>
+
+                        <t t-foreach="doc.delivery_lines" t-as="x">
+                        <tr>
+                            <td><span t-field="x.product_id.name"/></td>
+                            <td><span t-field="x.quantity"/></td>
+                            <td><span t-field="x.lot_serial_number"/></td>
+                            <td><span t-field="x.motor"/></td>
+                            <td><span t-field="x.color"/></td>
+                        </tr>
+                        </t>
+                    </table>
+
+                </div>
+
+                    <br/>
+                    <br/>
+                    <br/>
+
+                <div class="row">
+
+                        <div class="col-sm-6" style="width:50%">
+                            <h4><strong>Recipient Name: </strong></h4>
+                            <h4><strong>Recipient Title: </strong></h4>
+                            <h4><strong>Signature: </strong></h4>
+                            <h4><strong>Company Seal: </strong></h4>
+
+                        </div>
+
+                    </div>
+
+           </t>
+          </t>
+
+           </t>
+        </template>
+
+
+      <template id="vehicle_delivery_check_report_report_id">
+        
+                <t t-foreach="docs" t-as="doc">
+
+                 <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                    <div class="col-xs-12">
+	                    <center> <h2  style='text-align: center;  color:#616161; font-weight:bold;'>Vehicle Check Report</h2></center>
+            		</div>
+
+            		<div class="page">
+            			<table style='border-style: none;  border-color:#616161; border-width:5px;padding:2px;width: 100%;table-layout: fixed;'>
+                    	<tr>
+                        	<th colspan="12" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;width: 100%;font-weight:bold;'>Vehicle Information</th>
+                    	</tr>
+                    	 <tr>
+                            <th colspan="2" style=' text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Plate Number #</th>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.plate_num"/></td>
+                            <th colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Serial Number #</th>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.lot_serial_number"/></td>
+                          </tr>
+                            <tr>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'> Vehicle Make</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.vehicle_make"/></td>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Vehicle Model</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.vehicle_model"/></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Color</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.color"/></td>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Production Date</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.production_year"/></td>
+                          </tr>
+                            <tr>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Owner</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.vehicle_id.partner_id.name"/></td>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Mileage</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.vehicle_mileage"/></td>
+                          </tr>
+                          <tr>
+                            <th colspan="12" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;width: 100%;font-weight:bold;'>Client Information</th>
+                          </tr>
+                          <tr>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Name</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.vehicle_id.partner_id.name"/></td>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>ID Number</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.vehicle_id.id_number"/></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>License Type</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.vehicle_id.license_type"/></td>
+                            <td colspan="2" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Expiration</td>
+                            <td colspan="4" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;'><span t-field="doc.vehicle_id.expiry_date"/></td>
+                          </tr>
+                            
+                       
+                      </table>
+                      <br/>
+                      <div class="col-xs-12">
+                      <table style='border-style: solid;  border-color:#616161; border-width:5px;padding:2px;width: 100%;table-layout: fixed;cellpadding=0;'>
+                      	<tr>
+                        	<th colspan="12" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;width: 100%;font-weight:bold;'>Check Menu</th>
+                    	</tr>
+
+                    			<tr>
+                    			<td rowspan="9" colspan="7" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;word-wrap:break-word;padding:0px;'>
+									<img  src='/vehicle_delivery_transfers/static/src/img/car.jpg' style="width:450px;padding:2px;"/> 
+								
+									<div style='padding:2px;margin-top: 20px;margin-bottom: 0;font-size:20px'>
+                                        Notes: <span t-field="doc.note"/> <br/><br/><br/></div>
+                    			</td>
+                    			<td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px; font-weight:bold;'>Vehicle Papers</td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'>
+                                	<i class="far fa-dot-circle"></i>
+                                </td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px; font-weight:bold;'>Num.</td>
+                        		</tr>
+
+                    			<tr>
+                                <td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px; font-weight:bold;'>Car Brochure</td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'></td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>1</td>
+                                </tr>
+                                <tr>
+                                <td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Insurance</td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'></td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>2</td>
+                                </tr>
+                                <tr>
+                                <td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Driving Permit</td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'></td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>3</td>
+                                </tr>
+                                <tr>
+                                <td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Car keys (2)</td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'></td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>4</td>
+                                </tr>
+                                <tr>
+                                <td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;font-size:12px;'>Vehicle Attachments</td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'>
+                                	<i class="far fa-dot-circle"></i>
+                                </td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Num.</td>
+                                </tr>
+                                <tr>
+                                <td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>Spare Tire</td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'></td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>1</td>
+                                </tr>
+                                <tr>
+                                <td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;font-size:12px;'>Tire Change Equipment</td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'></td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>2</td>
+                                </tr>
+                                <tr>
+                                <td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;font-weight:bold;font-size:12px;padding:0px; word-wrap:break-word;margin-bottom:10px;'>Vehicle Towing Column</td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'>
+                                </td>
+                                <td colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;margin-bottom:10px;'>3</td>
+                                </tr>
+                                <tr>
+                    			<td colspan="7" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>
+                    				Vehicle Acknowledgment
+                    			</td>
+                    			<td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px; font-weight:bold;'>
+                    				Vehicle Catalog
+                    			</td>
+                                <td  colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'>
+                                </td>
+                                <td  colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px; font-weight:bold;'>
+                                	4
+                                </td>
+                        		</tr>
+
+                        		<tr>
+                    			<td colspan="7" style='text-align: left; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;word-wrap:break-word;'>
+                    			<h6 style ='font-size:12px'>I declare that I have received the car listed above data from Ajwad Company which is in good condition, and with no defects or deficiencies
+                    			</h6>
+                    			</td>
+                    			<td colspan="3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:0px; font-weight:bold;font-size:12px;'>
+                    				Warranty Brochure
+                    			</td>
+                                <td  colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;'>
+                                </td>
+                                <td  colspan="1" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px; font-weight:bold;'>
+                                	5
+                                </td>
+                            </tr>
+
+
+                    	<tr>
+                    		<td colspan = "3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>
+                    			Signature and Seal
+                    		</td>
+                    		<td colspan = "3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>
+                    			Movement Officer
+                    		</td>
+                    		<td colspan = "3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>
+                    			Recipient Signature / Seal
+                    		</td>
+                    		<td colspan = "3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>
+                    			Received Date
+                    		</td>
+                    	</tr>
+                    	<tr>
+                    		<td rowspan="2" colspan = "3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>
+                    			<br/>                  
+                    			<br/>
+                    		</td>
+
+                    		<td rowspan="2" colspan = "3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>         
+                    			<br/>
+                    			<br/>         
+                    		</td>
+                    		<td rowspan="2" colspan = "3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>
+                    		     <br/>
+                    		     <br/>                  
+                    		 </td>
+                    		<td rowspan="2" colspan = "3" style='text-align: center; border-style: solid;  border-color:#616161; border-width:2px;padding:2px;font-weight:bold;'>
+                    		      <span t-field="doc.vehicle_id.received_date"/>
+                    		      <br/>                  
+                    		  </td>
+                    	</tr>
+
+                      </table>
+                  </div>
+            		</div>
+           </t>
+          </t>
+
+           </t>
+        </template>
+    </data>
+</odoo>

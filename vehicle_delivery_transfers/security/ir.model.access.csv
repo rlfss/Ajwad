@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+"access_vehicle_delivery","vehicle.delivery.transfer","model_vehicle_delivery_transfer",,1,1,1,1
+"access_vehicle_delivery_lines","vehicle.delivery.lines","model_vehicle_delivery_lines",,1,1,1,1
+"access_vehicle_color","vehicle.color","model_vehicle_color",,1,1,1,1
+"access_vehicle_motor","vehicle.motor","model_vehicle_motor",,1,1,1,1
+
