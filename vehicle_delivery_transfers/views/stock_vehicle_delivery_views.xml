@@ -66,6 +66,9 @@
                                 <field name="motor"/>
                                 <field name="color"/>
                                 <field name="plate_num"/>
+                                <field name="production_year"/>
+                                <field name="vehicle_mileage"/>
+                                <field name="note"/>
                                 <field name ="delivery_ref"/>
                                 <field name = "quantity"/>
 

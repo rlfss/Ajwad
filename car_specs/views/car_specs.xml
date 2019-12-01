@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+  <!--  Tree -->
+       <record id="view_car_specs_tree" model="ir.ui.view">
+            <field name="name">car.specs.tree</field>
+            <field name="model">car.specs</field>
+            <field name="arch" type="xml">
+            	<tree>
+                    <field name="name"/>
+                    <field name="model_year"/>
+                </tree>
+            </field>
+        </record>
+
+  <!--  Tree -->
+       <record id="view_car_specs_catalogue_tree" model="ir.ui.view">
+            <field name="name">car.specs.catalogue.tree</field>
+            <field name="model">car.specs.catalogue</field>
+            <field name="arch" type="xml">
+            	<tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--  Main Form  -->
+
+        <record id="view_car_specs_form" model="ir.ui.view">
+            <field name="name">car.specs.form</field>
+            <field name="model">car.specs</field>
+            <field name="arch" type="xml">
+                <form string="Car Specs">
+                    <sheet>
+                            <div class="oe_button_box" name="button_box">
+                            <button type="object"
+                                name="action_view_car_specs"
+                                class="oe_stat_button"
+                                icon="fa-product-hunt"
+                                groups="base.group_user"
+                                string="Products">
+                            </button>
+                            </div>
+
+                            <group>
+                            <group>
+                                <field name="name_ref"/>
+                                <field name="name"/>
+                                <field name="model_year"/>
+                                <label for="public_price"/>
+                                <div name="public_price" class="o_row">
+                                    <field name="public_price"/>
+                                    <field name="currency_id" groups="base.group_multi_currency"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="image" widget='image' class="oe_avatar"/>
+                            </group>
+                            </group>
+                            <group>
+                            <group>
+                                <field name="transmission" widget="selection"/>
+                                <field name="engine_capacity"/>
+                                <field name="cylinders" widget="selection"/>
+                                <field name="fuel_type" widget="selection"/>
+                                <field name="fuel_capacity"/>
+                                <field name="fuel_economy"/>
+                            </group>
+                            <group>
+                                <field name="drive_type" widget="selection"/>
+                                <field name="horsepower"/>
+                                <field name="torque"/>
+                                <field name="top_speed"/>
+                                <field name="acceleration"/>
+                                <field name="seating_cpacity" widget="selection"/>
+                            </group>
+                            </group>
+                        <notebook>
+                            <page string="Options" name="options_lines">
+                            <field name="options_lines">
+                            <tree string="Options" editable="bottom">
+                                    <field name="options"/>
+                            </tree>
+                            </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--  Main Form  -->
+
+        <record id="view_car_specs_catalogue_form" model="ir.ui.view">
+            <field name="name">car.specs.catalogue.form</field>
+            <field name="model">car.specs.catalogue</field>
+            <field name="arch" type="xml">
+                <form string="Car Specs Catalogue">
+                    <sheet>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        <notebook>
+                            <page string="Car Specs" name="car_specs">
+                            <field name="car_specs">
+                            </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--  Action -->
+        <record id="action_car_specss" model="ir.actions.act_window">
+            <field name="name">Car Specs</field>
+            <field name="res_model">car.specs</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="view_id" ref="view_car_specs_tree"/>
+        </record>
+
+        <!--  Action -->
+        <record id="action_car_specss_catalogue" model="ir.actions.act_window">
+            <field name="name">Car Specs Catalogue</field>
+            <field name="res_model">car.specs.catalogue</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="view_id" ref="view_car_specs_catalogue_tree"/>
+        </record>
+
+
+
+    <record id="acar_specss_inherit_product" model="ir.ui.view">
+        <field name="name">product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="car_specs"/>
+            </field>
+        </field>
+    </record>
+
+
+        <menuitem action="car_specs.action_car_specss" id="menu_car_specss" parent="sale.product_menu_catalog" sequence="4"/>
+        <menuitem action="car_specs.action_car_specss_catalogue" id="menu_car_specss_catalogue" parent="sale.product_menu_catalog" sequence="4"/>
+
+
+        <!--  Report -->
+    <record id="paperformat_car_cat" model="report.paperformat">
+        <field name="name"> A4 No Header</field>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">80</field>
+    </record>
+
+    <report id="catalogue_car_specs_report_id"
+            model="car.specs.catalogue"
+            string="Car Specs Catalogue"
+            report_type="qweb-pdf"
+            paperformat="car_specs.paperformat_car_cat"
+            name="car_specs.catalogue_car_specs_report_id"
+            file="catalogue_car_specs_report_id"
+    />
+
+
+    <report id="car_specs_report_id"
+            model="car.specs"
+            string="Car Specs"
+            report_type="qweb-pdf"
+            name="car_specs.car_specs_report_report_id"
+            file="car_specs_report_report_id"
+    />
+    </data>
+</odoo>

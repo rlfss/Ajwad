@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="catalogue_car_specs_report_id">
+                <t t-foreach="docs" t-as="doc">
+
+<div class="header">
+</div>
+
+
+
+                 <t t-call="web.html_container">
+                    <t t-call="web.internal_layout">
+
+            <div class="col-12">
+                <div lass="col-6" class="float-right">
+                    
+                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo_web)" style="height:100px;"/>
+
+                </div>
+                <div lass="col-6" class="float-left">
+                    <div><strong><h2>Car Specs Catalogue</h2></strong></div>
+                    <div><strong><span t-field="doc.company_id.name"/></strong></div>
+                    <div><strong>List validity 03 days - depends on stock availability</strong></div>
+                </div>
+
+            </div>
+            <div class="col-12">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-sm-12"  style="width:100%">
+                            <table class="table table-bordered">
+                                    <thead>
+                                    <tr style ="background-color:#bc0000; color:#ffffff " class="active">
+                                        <th><strong>Car Model</strong></th>
+                                        <th><strong>Specification</strong></th>
+                                        <th><strong>Public Price</strong></th>
+                                        <th><strong>Car Image</strong></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <t t-foreach="doc.car_specs" t-as="x">
+                                    <tr>
+                                        
+                                        <td>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                            <span t-field="x.name"/>
+                                        </td>
+                                        <td>
+                                        	<span><strong>Model Year </strong></span><span t-field="x.model_year"/><br/>
+                                        	<span><strong>Engine Capacity (liters) </strong></span><span t-field="x.engine_capacity"/><br/>
+                                        	<span><strong>Transmission </strong></span><span t-field="x.transmission"/><br/>
+                                        	<span><strong>Cylinders </strong></span><span t-field="x.cylinders"/><br/>
+                                        	<span><strong>Fuel Typ e</strong></span><span t-field="x.fuel_type"/><br/>
+                                        	<span><strong>Fuel Tank Capacity (liters) </strong></span><span t-field="x.fuel_capacity"/><br/>
+                                        	<span><strong>Fuel Economy (L/100 Km) </strong></span><span t-field="x.fuel_economy"/><br/>
+                                        	<span><strong>Drive Type</strong></span><span t-field="x.drive_type"/><br/>
+                                        	<span><strong>Horsepower (bhp) </strong></span><span t-field="x.horsepower"/><br/>
+                                        	<span><strong>Torque (Nm) </strong></span><span t-field="x.torque"/><br/>
+                                        	<span><strong>Top Speed (Km/h) </strong></span><span t-field="x.top_speed"/><br/>
+                                        	<span><strong>Acceleration 0-100 Km/h (sec) </strong></span><span t-field="x.acceleration"/><br/>
+                                        	<span><strong>Seating Capacity </strong></span><span t-field="x.seating_cpacity"/><br/>
+                                    	</td>
+                                        <td>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                            <span t-field="x.public_price"/></td>
+                                        <td>
+                                            <br/>
+                                            <br/>
+                                        	<center> <img t-if="x.image" t-att-src="image_data_uri(x.image)" style="width:200px;"/>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    </t>
+
+                                    </tbody>
+                            </table>
+
+
+</div>
+</div>
+</div>
+</div>
+</t>
+</t>
+</t>
+
+</template>
+    </data>
+</odoo>

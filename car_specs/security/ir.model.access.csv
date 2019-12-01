@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_car_specs,car.specs,car_specs.model_car_specs,base.group_user,1,1,1,1
+access_car_specs_options,car.specs.options,car_specs.model_car_specs_options,base.group_user,1,1,1,1
+access_car_specs_catalogue,car.specs.catalogue,car_specs.model_car_specs_catalogue,base.group_user,1,1,1,1

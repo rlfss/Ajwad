@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="car_specs_report_report_id">
+                <t t-foreach="docs" t-as="doc">
+
+                 <t t-call="web.html_container">
+                    <t t-call="web.internal_layout">
+
+
+            <div class="col-xs-12">
+                   <center> <h2  style='text-align: center;  color:#616161; font-weight:bold;'>Car Specs</h2></center>
+            </div>
+
+
+                    <div class="page">
+
+                    <div class="row">
+
+                        <div class="col-sm-6" style="width:50%">
+                            <table class="col-xs-9 table table-bordered">
+                                    <tr>
+                                        <th><strong>Car Model</strong></th>
+                                        <th><span t-esc="doc.name"/></th>
+                                    </tr>
+                                    <tr>
+                                        <th><strong>Model Year</strong></th>
+                                        <th><span t-esc="doc.model_year"/></th>
+                                    </tr>
+                                    <tr>
+                                        <th><strong>Public Price</strong></th>
+                                        <th><span t-esc="doc.public_price"/></th>
+                                    </tr>
+                            </table>
+                        </div>
+
+                        <div class="col-sm-6" style="width:50%">
+                           <center> <img t-if="doc.image" t-att-src="image_data_uri(docs.image)" style="width:200px;"/> </center>
+                        </div>
+
+
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <br/>
+
+
+                    <table class="col-xs-9 table table-bordered" style='border-style: solid;  border-color:#616161; border-width:2px;padding:5px;width: 100%;'>
+                        <tr>
+                            <th><strong>Transmission</strong></th>
+                            <th><span t-esc="doc.transmission"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Engine Capacity (liters)</strong></th>
+                            <th><span t-esc="doc.engine_capacity"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Cylinders</strong></th>
+                            <th><span t-esc="doc.cylinders"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Fuel Type</strong></th>
+                            <th><span t-esc="doc.fuel_type"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Fuel Tank Capacity (liters)</strong></th>
+                            <th><span t-esc="doc.fuel_capacity"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Fuel Economy (L/100 Km)</strong></th>
+                            <th><span t-esc="doc.fuel_economy"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Drive Type</strong></th>
+                            <th><span t-esc="doc.drive_type"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Horsepower (bhp)</strong></th>
+                            <th><span t-esc="doc.horsepower"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Torque (Nm)</strong></th>
+                            <th><span t-esc="doc.torque"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Top Speed (Km/h)</strong></th>
+                            <th><span t-esc="doc.top_speed"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Acceleration 0-100 Km/h (sec)</strong></th>
+                            <th><span t-esc="doc.acceleration"/></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Seating Capacity</strong></th>
+                            <th><span t-esc="doc.seating_cpacity"/></th>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+
+                </div>
+
+
+
+           </t>
+          </t>
+
+           </t>
+        </template>
+    </data>
+</odoo>
