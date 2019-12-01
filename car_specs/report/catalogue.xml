@@ -56,10 +56,10 @@
                                         	<span><strong>Engine Capacity (liters) </strong></span><span t-field="x.engine_capacity"/><br/>
                                         	<span><strong>Transmission </strong></span><span t-field="x.transmission"/><br/>
                                         	<span><strong>Cylinders </strong></span><span t-field="x.cylinders"/><br/>
-                                        	<span><strong>Fuel Typ e</strong></span><span t-field="x.fuel_type"/><br/>
+                                        	<span><strong>Fuel Type </strong></span><span t-field="x.fuel_type"/><br/>
                                         	<span><strong>Fuel Tank Capacity (liters) </strong></span><span t-field="x.fuel_capacity"/><br/>
                                         	<span><strong>Fuel Economy (L/100 Km) </strong></span><span t-field="x.fuel_economy"/><br/>
-                                        	<span><strong>Drive Type</strong></span><span t-field="x.drive_type"/><br/>
+                                        	<span><strong>Drive Type </strong></span><span t-field="x.drive_type"/><br/>
                                         	<span><strong>Horsepower (bhp) </strong></span><span t-field="x.horsepower"/><br/>
                                         	<span><strong>Torque (Nm) </strong></span><span t-field="x.torque"/><br/>
                                         	<span><strong>Top Speed (Km/h) </strong></span><span t-field="x.top_speed"/><br/>
