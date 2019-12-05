@@ -14,7 +14,7 @@
                 
                 """,
     "license" : "OPL-1",
-    "price": '25',
+    "price": '35',
     "currency": 'EUR',
     "depends" : ['stock_landed_costs', 'account_cancel'],
     "data": [
@@ -22,7 +22,7 @@
      ],
     "auto_install": False,
     "installable": True,
-    "live_test_url":'https://youtu.be/J6jr2qpS4FM',
+    "live_test_url":'https://youtu.be/9cNvFRfr_7E',
     "images":['static/description/main_screenshot.png'],
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
