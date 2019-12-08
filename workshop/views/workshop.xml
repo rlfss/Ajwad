@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_workshop" model="ir.actions.act_window">
+            <field name="name">Work Shop Orders</field>
+            <field name="res_model">workshop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+
+        <record id="action_workshop_booking" model="ir.actions.act_window">
+            <field name="name">workshop.booking</field>
+            <field name="res_model">workshop.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_workshop_inspection_forms" model="ir.actions.act_window">
+            <field name="name">workshop.inspection.forms</field>
+            <field name="res_model">workshop.inspection.forms</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_workshop_estimations" model="ir.actions.act_window">
+            <field name="name">workshop.estimations</field>
+            <field name="res_model">workshop.estimations</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+
+        <record id="action_workshop_vehicles" model="ir.actions.act_window">
+            <field name="name">workshop.vehicles</field>
+            <field name="res_model">workshop.vehicles</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+
+        <record id="action_workshop_invoice" model="ir.actions.act_window">
+            <field name="name">workshop.invoice</field>
+            <field name="res_model">workshop.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_workshop_customer_payments" model="ir.actions.act_window">
+            <field name="name">workshop.customer.payments</field>
+            <field name="res_model">workshop.customer.payments</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_workshop_daily_reports" model="ir.actions.act_window">
+            <field name="name">workshop.daily.reports</field>
+            <field name="res_model">workshop.daily.reports</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+
+        <!-- Main -->
+        <menuitem id="workshop_menu" sequence="3" name="Workshop" web_icon="workshop,static/description/icon.png"/>
+        
+        <!-- Sub -->
+        <menuitem id="workshop_rception" name="Rception" sequence="1" parent="workshop.workshop_menu"/>
+        <menuitem id="workshop_repairs" name="Repairs" sequence="2" parent="workshop.workshop_menu"/>
+        <menuitem id="workshop_inventory" name="Inventory" sequence="3" parent="workshop.workshop_menu"/>
+        <menuitem id="workshop_reporting" name="Reporting" sequence="4" parent="workshop.workshop_menu"/>
+        <menuitem id="workshop_configration" name="Configration" sequence="5" parent="workshop.workshop_menu"/>
+
+
+        <!-- Rception -->
+        <menuitem action="action_workshop" name="WorkShop Orders" id="workshop_order_menu" sequence="1" parent="workshop.workshop_rception"/>
+
+        <menuitem action="action_workshop_booking" name="Booking Orders" id="workshop_booking_menu" sequence="2" parent="workshop.workshop_rception"/>
+
+        <menuitem action="action_workshop_inspection_forms" name="Inspection Forms" id="action_workshop_inspection_forms_menu" sequence="3" parent="workshop.workshop_rception"/>
+
+        <menuitem action="action_workshop_estimations" name="Estimations" id="action_workshop_estimations_menu" sequence="4" parent="workshop.workshop_rception"/>
+
+        <menuitem action="action_workshop_vehicles" name="Vehicles" id="action_workshop_vehicles_menu" sequence="5" parent="workshop.workshop_rception"/>
+        <menuitem action="action_workshop_invoice" name="Invoices" id="action_workshop_invoice_menu" sequence="6" parent="workshop.workshop_rception"/>
+        <menuitem action="action_workshop_customer_payments" name="Customer Payments" id="action_workshop_customer_payments_menu" sequence="7" parent="workshop.workshop_rception"/>
+        <menuitem action="action_workshop_daily_reports" name="Daily Closing Reports" id="action_workshop_daily_reports_menu" sequence="8" parent="workshop.workshop_rception"/>
+
+
+    </data>
+</odoo>

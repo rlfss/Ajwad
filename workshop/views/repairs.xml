@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_workshop_repair" model="ir.actions.act_window">
+            <field name="name">workshop.repair</field>
+            <field name="res_model">workshop.repair</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+        <record id="action_workshop_work_orders" model="ir.actions.act_window">
+            <field name="name">workshop.work.orders</field>
+            <field name="res_model">workshop.work.orders</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_workshop_technicians" model="ir.actions.act_window">
+            <field name="name">workshop.technicians</field>
+            <field name="res_model">workshop.technicians</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_workshop_repair_services" model="ir.actions.act_window">
+            <field name="name">workshop.repair.services</field>
+            <field name="res_model">workshop.repair.services</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+        <record id="action_workshop_work_centers" model="ir.actions.act_window">
+            <field name="name">workshop.work.centers</field>
+            <field name="res_model">workshop.work.centers</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+
+        <!-- Repairs -->
+        <menuitem action="action_workshop_repair" name="WorkShop Repair Orders" id="action_workshop_repair_menu" sequence="1" parent="workshop.workshop_repairs"/>
+
+        <menuitem action="action_workshop_work_orders" name="Work Orders" id="action_workshop_work_orders_menu" sequence="2" parent="workshop.workshop_repairs"/>
+
+        <menuitem action="action_workshop_technicians" name="Technicians" id="action_workshop_technicians_menu" sequence="3" parent="workshop.workshop_repairs"/>
+
+        <menuitem action="action_workshop_repair_services" name="Repair Services" id="action_workshop_repair_services_menu" sequence="4" parent="workshop.workshop_repairs"/>
+
+        <menuitem action="action_workshop_work_centers" name="Work Centers" id="action_workshop_work_centers_menu" sequence="5" parent="workshop.workshop_repairs"/>
+
+
+
+    </data>
+</odoo>

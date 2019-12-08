@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_workshop_spare_parts_requests" model="ir.actions.act_window">
+            <field name="name">workshop.spare.parts.requests</field>
+            <field name="res_model">workshop.spare.parts.requests</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+        <record id="action_workshop_spare_parts" model="ir.actions.act_window">
+            <field name="name">workshop.spare.parts</field>
+            <field name="res_model">workshop.spare.parts</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_workshop_procurement_requests" model="ir.actions.act_window">
+            <field name="name">workshop.procurement.requests</field>
+            <field name="res_model">workshop.procurement.requests</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <!-- Inventory -->
+        <menuitem action="action_workshop_spare_parts_requests" name="Spare Parts Requests"  id="action_workshop_spare_parts_requests_menu" sequence="1" parent="workshop.workshop_inventory"/>
+
+        <menuitem action="action_workshop_spare_parts" name="Spare Parts" id="action_workshop_spare_parts_menu" sequence="2" parent="workshop.workshop_inventory"/>
+
+        <menuitem action="action_workshop_procurement_requests" name="Procurement Requests" id="action_workshop_procurement_requests_menu" sequence="3" parent="workshop.workshop_inventory"/>
+
+
+    </data>
+</odoo>
