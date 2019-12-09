@@ -1,0 +1,40 @@
+<odoo>
+	<data>
+
+        <record id="view_product_workshop" model="ir.ui.view">
+            <field name="name">product.template.workshop.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options']" position="inside">
+                    <div>
+                        <field name="is_repair_services"/>
+                        <label for="is_repair_services"/>
+                    </div>
+                    <div>
+                        <field name="is_spare_part"/>
+                        <label for="is_spare_part"/>
+                    </div>
+                    <div>
+                        <field name="is_workshop_consumable"/>
+                        <label for="is_workshop_consumable"/>
+                    </div>
+                </xpath>
+
+
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="work_center" attrs="{'invisible':[('is_repair_services','=',False)]}"/>
+                    <field name="service_duration" attrs="{'invisible':[('is_repair_services','=',False)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="original_part_number" attrs="{'invisible':[('is_spare_part','=',False)]}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

@@ -2,8 +2,8 @@
 <odoo>
     <data>
 
-        <record id="action_workshop_spare_parts_requests" model="ir.actions.act_window">
-            <field name="name">workshop.spare.parts.requests</field>
+        <record id="action_workshop_spare_parts_requests_act" model="ir.actions.act_window">
+            <field name="name">Spare Parts Requests</field>
             <field name="res_model">workshop.spare.parts.requests</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -11,27 +11,60 @@
         </record>
 
 
-        <record id="action_workshop_spare_parts" model="ir.actions.act_window">
-            <field name="name">workshop.spare.parts</field>
-            <field name="res_model">workshop.spare.parts</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[]</field>
-        </record>
+
+
+	        <!-- Spare Parts -->
+	    <record id="spare_parts_service_action_product" model="ir.actions.act_window">
+	        <field name="name">Spare Parts</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">product.template</field>
+	        <field name="view_mode">kanban,tree,form</field>
+	        <field name="view_type">form</field>
+	        <field name="search_view_id" ref="product.product_template_search_view"/>
+	        <field name="domain">[('is_spare_part','=',True), ('type', '=', 'product')]</field>
+	    </record>
+
+	        <!-- WorkShop Consumables -->
+	    <record id="workshop_consumable_action_product" model="ir.actions.act_window">
+	        <field name="name">WorkShop Consumables</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">product.template</field>
+	        <field name="view_mode">kanban,tree,form</field>
+	        <field name="view_type">form</field>
+	        <field name="search_view_id" ref="product.product_template_search_view"/>
+	        <field name="domain">[('is_workshop_consumable','=',True), ('type', '=', 'product')]</field>
+	    </record>
+
+
 
         <record id="action_workshop_procurement_requests" model="ir.actions.act_window">
-            <field name="name">workshop.procurement.requests</field>
+            <field name="name">Procurement Requests</field>
             <field name="res_model">workshop.procurement.requests</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
+
+
+        <record id="action_workshop_consumable_deliveries" model="ir.actions.act_window">
+            <field name="name">Consumable Deliveries</field>
+            <field name="res_model">workshop.consumable.deliveries</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
         <!-- Inventory -->
-        <menuitem action="action_workshop_spare_parts_requests" name="Spare Parts Requests"  id="action_workshop_spare_parts_requests_menu" sequence="1" parent="workshop.workshop_inventory"/>
+        <menuitem action="action_workshop_spare_parts_requests_act" name="Spare Parts Requests"  id="action_workshop_spare_parts_requests_menu" sequence="1" parent="workshop.workshop_inventory"/>
 
-        <menuitem action="action_workshop_spare_parts" name="Spare Parts" id="action_workshop_spare_parts_menu" sequence="2" parent="workshop.workshop_inventory"/>
+        <menuitem action="action_workshop_consumable_deliveries" name="Consumable Deliveries" id="aaction_workshop_consumable_deliveries_menu" sequence="2" parent="workshop.workshop_inventory"/>
 
-        <menuitem action="action_workshop_procurement_requests" name="Procurement Requests" id="action_workshop_procurement_requests_menu" sequence="3" parent="workshop.workshop_inventory"/>
+        <menuitem action="spare_parts_service_action_product" name="Spare Parts" id="action_workshop_spare_parts_menu" sequence="3" parent="workshop.workshop_inventory"/>
+
+        <menuitem action="action_workshop_procurement_requests" name="Procurement Requests" id="action_workshop_procurement_requests_menu" sequence="4" parent="workshop.workshop_inventory"/>
+
+        <menuitem action="workshop_consumable_action_product" name="WorkShop Consumables" id="action_workshop_consumables_menu" sequence="5" parent="workshop.workshop_inventory"/>
+
 
 
     </data>

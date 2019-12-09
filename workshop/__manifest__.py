@@ -2,12 +2,13 @@
 {
     'name': 'Work Shop App',
     'version': '1.0',
-    'depends': ['base'],
+    'depends': ['base','sale','product','hr'],
     'data': [
+        'security/ir.model.access.csv',
         'views/workshop.xml',
         'views/repairs.xml',
         'views/inventory.xml',
-        'security/ir.model.access.csv',
+        'views/product.xml'
     ],
     'installable': True,
 }

@@ -2,8 +2,80 @@
 <odoo>
     <data>
 
+
+
+
+
+        <!-- Technicians Form -->
+        <record id="view_cworkshop_technicians_form" model="ir.ui.view">
+            <field name="name">Technicians</field>
+            <field name="model">workshop.technicians</field>
+            <field name="arch" type="xml">
+                <form string="Technicians">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="street"/>
+                                <field name="mobile"/>
+                            </group>
+                            <group>
+                                <field name="related_partner" context="{'default_name': name,'default_street': street,'default_mobile': mobile}"/>
+                                <field name="related_employee" context="{'default_name': name,'default_address_id': related_partner,'default_address_home_id': related_partner}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+
+        <!-- Work Centers Form -->
+        <record id="view_work_centers_form" model="ir.ui.view">
+            <field name="name">Work Centers</field>
+            <field name="model">workshop.work.centers</field>
+            <field name="arch" type="xml">
+                <form string="Work Centers">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                            </group>
+                            <group>
+                                <field name="technicians"/>
+                                <field name="partner_id" invisible="1"/>
+                                <field name="operations_type"/>
+                                <field name="analytic_account" context="{'default_name': name,'default_code': code,'default_partner_id': partner_id}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Repair Service -->
+    <record id="repair_service_action_product" model="ir.actions.act_window">
+        <field name="name">Repair Service</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="product.product_template_search_view"/>
+        <field name="domain">[('is_repair_services','=',True), ('type', '=', 'service')]</field>
+    </record>
+
+
+
+
+
+
+
+
         <record id="action_workshop_repair" model="ir.actions.act_window">
-            <field name="name">workshop.repair</field>
+            <field name="name">WorkShop Repair Orders</field>
             <field name="res_model">workshop.repair</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -12,7 +84,7 @@
 
 
         <record id="action_workshop_work_orders" model="ir.actions.act_window">
-            <field name="name">workshop.work.orders</field>
+            <field name="name">Work Orders</field>
             <field name="res_model">workshop.work.orders</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -20,24 +92,17 @@
         </record>
 
         <record id="action_workshop_technicians" model="ir.actions.act_window">
-            <field name="name">workshop.technicians</field>
+            <field name="name">Technicians</field>
             <field name="res_model">workshop.technicians</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
 
-        <record id="action_workshop_repair_services" model="ir.actions.act_window">
-            <field name="name">workshop.repair.services</field>
-            <field name="res_model">workshop.repair.services</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[]</field>
-        </record>
 
 
         <record id="action_workshop_work_centers" model="ir.actions.act_window">
-            <field name="name">workshop.work.centers</field>
+            <field name="name">Work Centers</field>
             <field name="res_model">workshop.work.centers</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -46,16 +111,27 @@
 
 
 
+        <record id="action_workshop_car_checkout" model="ir.actions.act_window">
+            <field name="name">Car Check Out</field>
+            <field name="res_model">workshop.car.checkout</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+
         <!-- Repairs -->
         <menuitem action="action_workshop_repair" name="WorkShop Repair Orders" id="action_workshop_repair_menu" sequence="1" parent="workshop.workshop_repairs"/>
 
         <menuitem action="action_workshop_work_orders" name="Work Orders" id="action_workshop_work_orders_menu" sequence="2" parent="workshop.workshop_repairs"/>
 
-        <menuitem action="action_workshop_technicians" name="Technicians" id="action_workshop_technicians_menu" sequence="3" parent="workshop.workshop_repairs"/>
+        <menuitem action="action_workshop_car_checkout" name="Car Check Out" id="action_workshop_car_checkout_menu" sequence="3" parent="workshop.workshop_repairs"/>
 
-        <menuitem action="action_workshop_repair_services" name="Repair Services" id="action_workshop_repair_services_menu" sequence="4" parent="workshop.workshop_repairs"/>
+        <menuitem action="action_workshop_technicians" name="Technicians" id="action_workshop_technicians_menu" sequence="4" parent="workshop.workshop_repairs"/>
 
-        <menuitem action="action_workshop_work_centers" name="Work Centers" id="action_workshop_work_centers_menu" sequence="5" parent="workshop.workshop_repairs"/>
+        <menuitem action="repair_service_action_product" name="Repair Services" id="action_workshop_repair_services_menu" sequence="5" parent="workshop.workshop_repairs"/>
+
+        <menuitem action="action_workshop_work_centers" name="Work Centers" id="action_workshop_work_centers_menu" sequence="6" parent="workshop.workshop_repairs"/>
 
 
 

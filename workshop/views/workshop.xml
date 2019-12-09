@@ -3,7 +3,7 @@
     <data>
 
         <record id="action_workshop" model="ir.actions.act_window">
-            <field name="name">Work Shop Orders</field>
+            <field name="name">WorkShop Orders</field>
             <field name="res_model">workshop</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -13,7 +13,7 @@
 
 
         <record id="action_workshop_booking" model="ir.actions.act_window">
-            <field name="name">workshop.booking</field>
+            <field name="name">Booking Orders</field>
             <field name="res_model">workshop.booking</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -21,7 +21,7 @@
         </record>
 
         <record id="action_workshop_inspection_forms" model="ir.actions.act_window">
-            <field name="name">workshop.inspection.forms</field>
+            <field name="name">Inspection Forms</field>
             <field name="res_model">workshop.inspection.forms</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -29,7 +29,7 @@
         </record>
 
         <record id="action_workshop_estimations" model="ir.actions.act_window">
-            <field name="name">workshop.estimations</field>
+            <field name="name">Estimations</field>
             <field name="res_model">workshop.estimations</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -39,7 +39,7 @@
 
 
         <record id="action_workshop_vehicles" model="ir.actions.act_window">
-            <field name="name">workshop.vehicles</field>
+            <field name="name">Vehicles</field>
             <field name="res_model">workshop.vehicles</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -49,15 +49,23 @@
 
 
         <record id="action_workshop_invoice" model="ir.actions.act_window">
-            <field name="name">workshop.invoice</field>
+            <field name="name">WorkShop Invoices</field>
             <field name="res_model">workshop.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        
+        <record id="action_workshop_expenses" model="ir.actions.act_window">
+            <field name="name">WorkShop Expenses</field>
+            <field name="res_model">workshop.expenses</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
 
         <record id="action_workshop_customer_payments" model="ir.actions.act_window">
-            <field name="name">workshop.customer.payments</field>
+            <field name="name">Customer Payments</field>
             <field name="res_model">workshop.customer.payments</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -65,7 +73,7 @@
         </record>
 
         <record id="action_workshop_daily_reports" model="ir.actions.act_window">
-            <field name="name">workshop.daily.reports</field>
+            <field name="name">Daily Closing Reports</field>
             <field name="res_model">workshop.daily.reports</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -81,8 +89,9 @@
         <menuitem id="workshop_rception" name="Rception" sequence="1" parent="workshop.workshop_menu"/>
         <menuitem id="workshop_repairs" name="Repairs" sequence="2" parent="workshop.workshop_menu"/>
         <menuitem id="workshop_inventory" name="Inventory" sequence="3" parent="workshop.workshop_menu"/>
-        <menuitem id="workshop_reporting" name="Reporting" sequence="4" parent="workshop.workshop_menu"/>
-        <menuitem id="workshop_configration" name="Configration" sequence="5" parent="workshop.workshop_menu"/>
+        <menuitem id="workshop_treasury" name="Treasury" sequence="5" parent="workshop.workshop_menu"/>
+        <menuitem id="workshop_reporting" name="Reporting" sequence="5" parent="workshop.workshop_menu"/>
+        <menuitem id="workshop_configration" name="Configration" sequence="6" parent="workshop.workshop_menu"/>
 
 
         <!-- Rception -->
@@ -95,9 +104,13 @@
         <menuitem action="action_workshop_estimations" name="Estimations" id="action_workshop_estimations_menu" sequence="4" parent="workshop.workshop_rception"/>
 
         <menuitem action="action_workshop_vehicles" name="Vehicles" id="action_workshop_vehicles_menu" sequence="5" parent="workshop.workshop_rception"/>
-        <menuitem action="action_workshop_invoice" name="Invoices" id="action_workshop_invoice_menu" sequence="6" parent="workshop.workshop_rception"/>
-        <menuitem action="action_workshop_customer_payments" name="Customer Payments" id="action_workshop_customer_payments_menu" sequence="7" parent="workshop.workshop_rception"/>
-        <menuitem action="action_workshop_daily_reports" name="Daily Closing Reports" id="action_workshop_daily_reports_menu" sequence="8" parent="workshop.workshop_rception"/>
+
+
+        <menuitem action="action_workshop_invoice" name="Work Shop Invoices" id="action_workshop_invoice_menu" sequence="6" parent="workshop.workshop_treasury"/>
+        <menuitem action="action_workshop_expenses" name="Workshop Expenses" id="action_workshop_expenses_menu" sequence="6" parent="workshop.workshop_treasury"/>
+
+        <menuitem action="action_workshop_customer_payments" name="Customer Payments" id="action_workshop_customer_payments_menu" sequence="7" parent="workshop.workshop_treasury"/>
+        <menuitem action="action_workshop_daily_reports" name="Daily Closing Reports" id="action_workshop_daily_reports_menu" sequence="8" parent="workshop.workshop_treasury"/>
 
 
     </data>

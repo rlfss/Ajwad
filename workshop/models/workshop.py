@@ -46,10 +46,15 @@ class WorkShopVehicles(models.Model):
 
 class WorkShopInvoice(models.Model):
     _name = 'workshop.invoice'
-    _description = 'Invoices'
+    _description = 'WorkShop Invoices'
 
     name = fields.Char('Name', readonly=True , default=lambda x: str('New'))
 
+class WorkShopExpenses(models.Model):
+    _name = 'workshop.expenses'
+    _description = 'WorkShop Expenses'
+
+    name = fields.Char('Name', readonly=True , default=lambda x: str('New'))
 
 
 class WorkShopCustomerPayments(models.Model):
@@ -66,5 +71,3 @@ class WorkShopDailyClosingReports(models.Model):
     _description = 'Daily Closing Reports'
 
     name = fields.Char('Name', readonly=True , default=lambda x: str('New'))
-
-

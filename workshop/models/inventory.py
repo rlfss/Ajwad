@@ -15,21 +15,18 @@ class WorkShopSparePartsRequests(models.Model):
 
 
 
-
-class WorkShopSpareParts(models.Model):
-    _name = 'workshop.spare.parts'
-    _description = 'Spare Parts'
-
-    name = fields.Char('Name', readonly=True , default=lambda x: str('New'))
-
-
-
-
-
-
 class WorkShopProcurementRequests(models.Model):
     _name = 'workshop.procurement.requests'
     _description = 'Procurement Requests'
 
     name = fields.Char('Name', readonly=True , default=lambda x: str('New'))
+
+
+class WorkShopConsumableDeliveries(models.Model):
+    _name = 'workshop.consumable.deliveries'
+    _description = 'Consumable Deliveries'
+
+    name = fields.Char('Name', readonly=True , default=lambda x: str('New'))
+
+
 
