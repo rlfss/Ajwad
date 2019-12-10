@@ -2,6 +2,57 @@
 <odoo>
     <data>
 
+
+
+
+        <!-- Vehicles Form -->
+        <record id="view_workshop_vehicles_form" model="ir.ui.view">
+            <field name="name">Vehicles</field>
+            <field name="model">workshop.vehicles</field>
+            <field name="arch" type="xml">
+                <form string="Technicians">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button string="Sale Order" type="object"
+                                    class="oe_stat_button" icon="fa-shopping-cart">
+                            </button>
+                            <button string="Estimations" type="object"
+                                    class="oe_stat_button" icon="fa-sticky-note">
+                            </button>
+                            <button string="Repair Orders" type="object"
+                                    class="oe_stat_button" icon="fa-wrench ">
+                            </button>
+                            <button string="Odometer" type="object"
+                                    class="oe_stat_button" icon="fa-hourglass-end">
+                            </button>
+                            <button string="Owners" type="object"
+                                    class="oe_stat_button" icon="fa-users">
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="make"/>
+                                <field name="model"/>
+                                <field name="color"/>
+                                <field name="year"/>
+                            </group>
+                            <group>
+                                <field name="fuel_type"/>
+                                <field name="odometer"/>
+                                <field name="liscence_plate"/>
+                                <field name="last_owner"/>
+                            </group>
+                        </group>
+                        <group>
+                                <field name="vin"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
         <record id="action_workshop" model="ir.actions.act_window">
             <field name="name">WorkShop Orders</field>
             <field name="res_model">workshop</field>
@@ -46,6 +97,29 @@
             <field name="domain">[]</field>
         </record>
 
+
+
+        <record id="action_workshop_vehicles_make" model="ir.actions.act_window">
+            <field name="name">Vehicles Make</field>
+            <field name="res_model">workshop.vehicles.make</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <record id="action_workshop_vehicles_model" model="ir.actions.act_window">
+            <field name="name">Vehicles Model</field>
+            <field name="res_model">workshop.vehicles.model</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <record id="action_workshop_vehicles_color" model="ir.actions.act_window">
+            <field name="name">Vehicles Color</field>
+            <field name="res_model">workshop.vehicles.color</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
 
 
         <record id="action_workshop_invoice" model="ir.actions.act_window">

@@ -17,3 +17,6 @@ access_workshop_procurement_requests,workshop.procurement.requests,workshop.mode
 access_workshop_car_checkout,workshop.car.checkout,workshop.model_workshop_car_checkout,base.group_user,1,1,1,1
 access_workshop_expenses,workshop.expenses,workshop.model_workshop_expenses,base.group_user,1,1,1,1
 access_workshop_consumable_deliveries,workshop.consumable.deliveries,workshop.model_workshop_consumable_deliveries,base.group_user,1,1,1,1
+access_workshop_vehicles_make,workshop.vehicles.make,workshop.model_workshop_vehicles_make,base.group_user,1,1,1,1
+access_workshop_vehicles_model,workshop.vehicles.model,workshop.model_workshop_vehicles_model,base.group_user,1,1,1,1
+access_workshop_vehicles_color,workshop.vehicles.color,workshop.model_workshop_vehicles_color,base.group_user,1,1,1,1
