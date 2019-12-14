@@ -12,7 +12,6 @@ access_workshop_repair,workshop.repair,workshop.model_workshop_repair,base.group
 access_workshop_work_orders,workshop.work.orders,workshop.model_workshop_work_orders,base.group_user,1,1,1,1
 access_workshop_technicians,workshop.technicians,workshop.model_workshop_technicians,base.group_user,1,1,1,1
 access_workshop_work_centers,workshop.work.centers,workshop.model_workshop_work_centers,base.group_user,1,1,1,1
-access_workshop_spare_parts,workshop.spare.parts,workshop.model_workshop_spare_parts,base.group_user,1,1,1,1
 access_workshop_procurement_requests,workshop.procurement.requests,workshop.model_workshop_procurement_requests,base.group_user,1,1,1,1
 access_workshop_car_checkout,workshop.car.checkout,workshop.model_workshop_car_checkout,base.group_user,1,1,1,1
 access_workshop_expenses,workshop.expenses,workshop.model_workshop_expenses,base.group_user,1,1,1,1
