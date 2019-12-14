@@ -8,7 +8,8 @@
         'views/workshop.xml',
         'views/repairs.xml',
         'views/inventory.xml',
-        'views/product.xml'
+        'views/product.xml',
+        'data/sequence.xml'
     ],
     'installable': True,
 }
