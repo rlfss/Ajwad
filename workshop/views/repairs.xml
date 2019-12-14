@@ -45,13 +45,21 @@
                                 <field name="code"/>
                             </group>
                             <group>
-                                <field name="technicians"/>
                                 <field name="partner_id" invisible="1"/>
                                 <field name="operations_type"/>
                                 <field name="analytic_account" context="{'default_name': name,'default_code': code,'default_partner_id': partner_id}"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Technicians List" name="technicians" >
+                                <field name="technicians"/>
+                            </page>
+                </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -65,6 +73,7 @@
         <field name="view_type">form</field>
         <field name="search_view_id" ref="product.product_template_search_view"/>
         <field name="domain">[('is_repair_services','=',True), ('type', '=', 'service')]</field>
+        <field name="context">{"default_is_repair_services": True, 'default_type': 'service'}</field>
     </record>
 
 

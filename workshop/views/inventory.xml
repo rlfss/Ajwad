@@ -22,6 +22,7 @@
 	        <field name="view_type">form</field>
 	        <field name="search_view_id" ref="product.product_template_search_view"/>
 	        <field name="domain">[('is_spare_part','=',True), ('type', '=', 'product')]</field>
+        <field name="context">{"default_is_spare_part": True, 'default_type': 'product'}</field>
 	    </record>
 
 	        <!-- WorkShop Consumables -->
@@ -33,6 +34,7 @@
 	        <field name="view_type">form</field>
 	        <field name="search_view_id" ref="product.product_template_search_view"/>
 	        <field name="domain">[('is_workshop_consumable','=',True), ('type', '=', 'product')]</field>
+        <field name="context">{"default_is_workshop_consumable": True, 'default_type': 'product'}</field>
 	    </record>
 
 
