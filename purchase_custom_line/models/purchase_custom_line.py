@@ -14,4 +14,5 @@ class PurchaseCustomOrderLine(models.Model):
 
     @api.onchange('price_unit','support')
     def onchange_partner_recipient(self):
-        self.initial_price_unit = self.price_unit + self.support
+        for line in self:
+            line.initial_price_unit = line.price_unit + line.support
