@@ -9,9 +9,9 @@ class PurchaseCustomOrderLine(models.Model):
     _name = 'purchase.order.line'
     _inherit = 'purchase.order.line'
 
-    initial_price_unit = fields.Float(string='Initial Unit Price', digits=dp.get_precision('Product Price'))
+    initial_price_unit = fields.Float(string='Initial Unit Price', digits=dp.get_precision('Product Price'),compute='onchange_partner_recipient')
     support = fields.Float(string='Support', digits=dp.get_precision('Product Price'))
 
-    @api.onchange('initial_price_unit','support')
+    @api.onchange('price_unit','support')
     def onchange_partner_recipient(self):
-        self.price_unit = self.initial_price_unit - self.support
+        self.initial_price_unit = self.price_unit + self.support
