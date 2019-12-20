@@ -14,6 +14,14 @@
         </field>
      </record>
 
+        <record id="action_move_lines" model="ir.actions.act_window">
+            <field name="name">stock.move</field>
+            <field name="res_model">stock.move</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem action="action_move_lines" name="stock move"  id="action_move_lines_menu" sequence="1" parent="purchase.menu_procurement_management"/>
 
     </data>
 </odoo>
