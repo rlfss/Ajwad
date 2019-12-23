@@ -19,8 +19,6 @@ class StockMove(models.Model):
 		'context':{'move_id':self.id}
 		}
 
-class SotckSerial(models.Model):
-	_name = 'sotck.serial'
 class StockSerial(models.Model):
 	_name = 'stock.serial'
 	_description = 'Stock Serial'
@@ -36,5 +34,6 @@ class StockSerial(models.Model):
 				if not line.lot_name:
 					line.lot_name=vals.get('name')
 					line.qty_done=1
+					vals['lot_id'] = False
 					vals['move_id'] = move.id
 					return super(StockSerial,self).create(vals)
