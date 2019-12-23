@@ -16,3 +16,11 @@ class PurchaseCustomOrderLine(models.Model):
     def onchange_partner_recipient(self):
         for line in self:
             line.initial_price_unit = line.price_unit + line.support
+
+
+class StockQuant(models.Model):
+    _inherit = 'stock.quant'
+
+    lot_id = fields.Many2one(
+        'stock.production.lot', 'Lot/Serial Number',
+        ondelete='set null', readonly=False)
