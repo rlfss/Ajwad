@@ -19,3 +19,6 @@ access_workshop_consumable_deliveries,workshop.consumable.deliveries,workshop.mo
 access_workshop_vehicles_make,workshop.vehicles.make,workshop.model_workshop_vehicles_make,base.group_user,1,1,1,1
 access_workshop_vehicles_model,workshop.vehicles.model,workshop.model_workshop_vehicles_model,base.group_user,1,1,1,1
 access_workshop_vehicles_color,workshop.vehicles.color,workshop.model_workshop_vehicles_color,base.group_user,1,1,1,1
+
+access_spare_parts_workshop_line,workshop.spare.parts.line,workshop.model_workshop_spare_parts_line,base.group_user,1,1,1,1
+access_repair_workshop_line,workshop.repair.line,workshop.model_workshop_repair_line,base.group_user,1,1,1,1

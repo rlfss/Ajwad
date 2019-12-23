@@ -13,6 +13,7 @@ class WorkShop(models.Model):
     name = fields.Char('Name', readonly=True , default=lambda x: str('New'))
 
     vehicle = fields.Many2one('workshop.vehicles', string='Vehicle', required=True)
+    currency_id = fields.Many2one( store=True, string='Currency', readonly=True)
 
     make = fields.Many2one('workshop.vehicles.make', related='vehicle.make', string='Make', readonly=True)
     model = fields.Many2one('workshop.vehicles.model', related='vehicle.model', string='Model', readonly=True)
@@ -42,8 +43,32 @@ class WorkShop(models.Model):
     customer_note = fields.Text('Customer Notes')
     tecnical_note = fields.Text('Technical Notes')
 
-    repair_services = fields.Many2many('product.template', string='Repair Services', domain=[('is_repair_services','=',True), ('type', '=', 'service')])
-    spare_parts = fields.Many2many('product.template', string='Spare Parts', domain=[('is_spare_part','=',True), ('type', '=', 'product')])
+    repair_services = fields.One2many('workshop.repair.line','repair_line_id', string='Repair Services')
+    spare_parts = fields.One2many('workshop.spare.parts.line', 'spare_parts_line_id', string='Spare Parts')
+
+    amount_untaxed = fields.Float(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all', track_visibility='onchange', track_sequence=5)
+    amount_tax = fields.Float(string='Taxes', store=True, readonly=True, compute='_amount_all')
+    amount_total_spare = fields.Float(string='Total', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
+    amount_total_repair = fields.Float(string='Total', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
+
+    @api.depends('spare_parts.price_subtotal','repair_services.price_subtotal')
+    def _amount_all(self):
+        """
+        Compute the total amounts of the SO.
+        """
+        for order in self:
+            amount_untaxed_spare = amount_tax = 0.0
+            amount_untaxed_repair = amount_tax = 0.0
+            for line in order.spare_parts:
+                amount_untaxed_spare += line.price_subtotal
+            for line in order.repair_services:
+                amount_untaxed_repair += line.price_subtotal
+            order.update({
+                'amount_total_spare': amount_untaxed_spare + amount_tax,
+                'amount_total_repair': amount_untaxed_repair + amount_tax,
+            })
+
+    
 
 
     @api.model
@@ -52,6 +77,60 @@ class WorkShop(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('workshop') or _('New')                
             result = super(WorkShop, self).create(vals)
             return result
+
+class WorkShopSparePartsLine(models.Model):
+    _name = 'workshop.spare.parts.line'
+    _description = 'Workshop Spare Parts Order Line'
+    
+    spare_parts_line_id = fields.Many2one('workshop', string='Spare Parts Line Reference', required=True, ondelete='cascade', index=True, copy=False)
+    product_id = fields.Many2one('product.product', string='Product', required=True, domain=[('is_spare_part','=',True)], change_default=True, ondelete='restrict')
+    name = fields.Text(string='Description')
+    product_uom_qty = fields.Float(string='Ordered Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True, default=1.0)
+    qty_delivered = fields.Float('Delivered Quantity', copy=False ,inverse='_inverse_qty_delivered', store=True, digits=dp.get_precision('Product Unit of Measure'), default=0.0)
+    qty_invoiced = fields.Float(string='Invoiced Quantity', store=True, readonly=True, digits=dp.get_precision('Product Unit of Measure'))
+    price_unit = fields.Float('Unit Price', required=True, digits=dp.get_precision('Product Price'), default=0.0)
+    tax_id = fields.Many2one('account.tax', string='Taxes', domain=['|', ('active', '=', False), ('active', '=', True)])
+    price_subtotal = fields.Float(compute='_compute_amount', string='Subtotal', readonly=True, store=True)
+    
+
+    @api.depends('product_uom_qty', 'price_unit', 'tax_id')
+    def _compute_amount(self):
+        """
+        Compute the amounts of the SO line.
+        """
+        for line in self:
+            price = line.price_unit
+            taxes = line.tax_id.compute_all(price, line.spare_parts_line_id.currency_id, line.product_uom_qty)
+            line.update({
+                'price_subtotal': taxes['total_excluded'],
+            })
+
+class WorkShopRepairLine(models.Model):
+    _name = 'workshop.repair.line'
+    _description = 'Workshop Repair Order Line'
+    
+    repair_line_id = fields.Many2one('workshop', string='Spare Parts Line Reference', required=True, ondelete='cascade', index=True, copy=False)
+    product_id = fields.Many2one('product.product', string='Product', required=True, domain=[('is_spare_part','=',True)], change_default=True, ondelete='restrict')
+    name = fields.Text(string='Description')
+    product_uom_qty = fields.Float(string='Ordered Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True, default=1.0)
+    qty_delivered = fields.Float('Delivered Quantity', copy=False ,inverse='_inverse_qty_delivered', store=True, digits=dp.get_precision('Product Unit of Measure'), default=0.0)
+    qty_invoiced = fields.Float(string='Invoiced Quantity', store=True, readonly=True, digits=dp.get_precision('Product Unit of Measure'))
+    price_unit = fields.Float('Unit Price', required=True, digits=dp.get_precision('Product Price'), default=0.0)
+    tax_id = fields.Many2one('account.tax', string='Taxes', domain=['|', ('active', '=', False), ('active', '=', True)])
+    price_subtotal = fields.Float(compute='_compute_amount', string='Subtotal', readonly=True, store=True)
+    
+
+    @api.depends('product_uom_qty', 'price_unit', 'tax_id')
+    def _compute_amount(self):
+        """
+        Compute the amounts of the SO line.
+        """
+        for line in self:
+            price = line.price_unit
+            taxes = line.tax_id.compute_all(price, line.repair_line_id.currency_id, line.product_uom_qty)
+            line.update({
+                'price_subtotal': taxes['total_excluded'],
+            })
 
 class WorkShopBooking(models.Model):
     _name = 'workshop.booking'

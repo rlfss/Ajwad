@@ -119,11 +119,55 @@
                             </page>
 
                             <page string="Spare Parts">
-                                <field name="spare_parts"/>
+                                <field name="spare_parts">
+                                <tree string="Spare Parts" editable="bottom">
+
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name="product_uom_qty"/>
+                                <field name="qty_delivered"/>
+                                <!-- <field name ="qty_invoiced"/> -->
+                                <field name = "price_unit"/>
+                                <!-- <field name = "tax_id"/> -->
+                                <field name = "price_subtotal"/>
+                            
+                                </tree>
+                                </field>
+                                <div class="oe_clear"/>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="amount_total_spare" />
+                                </div>
+                                <field name="amount_total_spare" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            
+
                             </page>
 
                             <page string="Repair Services">
-                                <field name="repair_services"/>
+                                <field name="repair_services">
+                                <tree string="Spare Parts" editable="bottom">
+
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name="product_uom_qty"/>
+                                <field name="qty_delivered"/>
+                                <!-- <field name ="qty_invoiced"/> -->
+                                <field name = "price_unit"/>
+                                <!-- <field name = "tax_id"/> -->
+                                <field name = "price_subtotal"/>
+                            
+                                </tree>
+                                </field>
+                                <div class="oe_clear"/>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="amount_total_repair" />
+                                </div>
+                                <field name="amount_total_repair" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <div class="oe_clear"/>
                             </page>
 
                     </notebook>
