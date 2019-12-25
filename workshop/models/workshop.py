@@ -48,8 +48,9 @@ class WorkShop(models.Model):
 
     amount_untaxed = fields.Float(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all', track_visibility='onchange', track_sequence=5)
     amount_tax = fields.Float(string='Taxes', store=True, readonly=True, compute='_amount_all')
-    amount_total_spare = fields.Float(string='Total', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
-    amount_total_repair = fields.Float(string='Total', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
+    amount_total_spare = fields.Float(string='Total Spare Parts', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
+    amount_total_repair = fields.Float(string='Total Services', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
+    amount_total_order = fields.Float(string='Total Order', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
 
     @api.depends('spare_parts.price_subtotal','repair_services.price_subtotal')
     def _amount_all(self):
@@ -63,9 +64,12 @@ class WorkShop(models.Model):
                 amount_untaxed_spare += line.price_subtotal
             for line in order.repair_services:
                 amount_untaxed_repair += line.price_subtotal
+
+            amount_total_order = amount_untaxed_spare + amount_untaxed_repair
             order.update({
                 'amount_total_spare': amount_untaxed_spare + amount_tax,
                 'amount_total_repair': amount_untaxed_repair + amount_tax,
+                'amount_total_order': amount_total_order,
             })
 
     
@@ -86,11 +90,12 @@ class WorkShopSparePartsLine(models.Model):
     product_id = fields.Many2one('product.product', string='Product', required=True, domain=[('is_spare_part','=',True)], change_default=True, ondelete='restrict')
     name = fields.Text(string='Description')
     product_uom_qty = fields.Float(string='Ordered Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True, default=1.0)
-    qty_delivered = fields.Float('Delivered Quantity', copy=False ,inverse='_inverse_qty_delivered', store=True, digits=dp.get_precision('Product Unit of Measure'), default=0.0)
+    qty_delivered = fields.Float('Delivered Quantity', copy=False , store=True, digits=dp.get_precision('Product Unit of Measure'), default=0.0)
     qty_invoiced = fields.Float(string='Invoiced Quantity', store=True, readonly=True, digits=dp.get_precision('Product Unit of Measure'))
     price_unit = fields.Float('Unit Price', required=True, digits=dp.get_precision('Product Price'), default=0.0)
     tax_id = fields.Many2one('account.tax', string='Taxes', domain=['|', ('active', '=', False), ('active', '=', True)])
     price_subtotal = fields.Float(compute='_compute_amount', string='Subtotal', readonly=True, store=True)
+    analytic_account = fields.Many2one('account.analytic.account', string='Analytic Account')
     
 
     @api.depends('product_uom_qty', 'price_unit', 'tax_id')
@@ -105,19 +110,50 @@ class WorkShopSparePartsLine(models.Model):
                 'price_subtotal': taxes['total_excluded'],
             })
 
+    @api.onchange('product_id')
+    def _prepare_line(self):
+        for line in self:
+            self.name = self.product_id.name
+            self.price_unit = self.product_id.list_price
+
 class WorkShopRepairLine(models.Model):
     _name = 'workshop.repair.line'
     _description = 'Workshop Repair Order Line'
     
     repair_line_id = fields.Many2one('workshop', string='Spare Parts Line Reference', required=True, ondelete='cascade', index=True, copy=False)
-    product_id = fields.Many2one('product.product', string='Product', required=True, domain=[('is_spare_part','=',True)], change_default=True, ondelete='restrict')
+    product_id = fields.Many2one('product.product', string='Product', required=True, domain=[('is_repair_services','=',True)], change_default=True, ondelete='restrict')
     name = fields.Text(string='Description')
     product_uom_qty = fields.Float(string='Ordered Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True, default=1.0)
-    qty_delivered = fields.Float('Delivered Quantity', copy=False ,inverse='_inverse_qty_delivered', store=True, digits=dp.get_precision('Product Unit of Measure'), default=0.0)
+    qty_delivered = fields.Float('Delivered Quantity', copy=False , store=True, digits=dp.get_precision('Product Unit of Measure'), default=0.0)
     qty_invoiced = fields.Float(string='Invoiced Quantity', store=True, readonly=True, digits=dp.get_precision('Product Unit of Measure'))
     price_unit = fields.Float('Unit Price', required=True, digits=dp.get_precision('Product Price'), default=0.0)
     tax_id = fields.Many2one('account.tax', string='Taxes', domain=['|', ('active', '=', False), ('active', '=', True)])
     price_subtotal = fields.Float(compute='_compute_amount', string='Subtotal', readonly=True, store=True)
+    work_center = fields.Text(string='Work Center',store=True)
+    service_duration = fields.Float(string='Service Duration',store=True)
+    analytic_account = fields.Many2one('account.analytic.account', string='Analytic Account')
+    technicians = fields.Many2one('workshop.technicians', string='Technicians')
+
+
+    @api.onchange('product_id')
+    def _prepare_line(self):
+
+        res = {}
+        selected = []
+        technicians = self.env['workshop.technicians'].search([])
+        for tech in technicians:
+            if tech.name == self.product_id.work_center.technicians.name:
+                selected.append(tech.name)
+        res.update({'domain':{'technicians':[('name','=',list(set(selected)))],}})
+
+
+        for line in self:
+            self.name = self.product_id.name
+            self.price_unit = self.product_id.list_price
+            self.work_center = self.product_id.work_center.name
+            self.service_duration = self.product_id.service_duration
+
+        return res
     
 
     @api.depends('product_uom_qty', 'price_unit', 'tax_id')
@@ -131,6 +167,7 @@ class WorkShopRepairLine(models.Model):
             line.update({
                 'price_subtotal': taxes['total_excluded'],
             })
+
 
 class WorkShopBooking(models.Model):
     _name = 'workshop.booking'
@@ -160,7 +197,7 @@ class WorkShopVehicles(models.Model):
     _name = 'workshop.vehicles'
     _description = 'Vehicles'
 
-    name = fields.Char('Name', readonly=True , default=lambda x: str('New'))
+    name = fields.Char('Name', readonly=True , compute='_compute_name' )
 
     make = fields.Many2one('workshop.vehicles.make', string='Make')
     model = fields.Many2one('workshop.vehicles.model', string='Model')
@@ -185,6 +222,10 @@ class WorkShopVehicles(models.Model):
         ('vin_uniq', 'unique (vin)', 'The VIN Must be unique !'),
     ]
 
+    def _compute_name(self):
+        for name1 in self:
+            name1.name = name1.make.name +" " + name1.model.name
+
 
 
 class WorkShopVehiclesMake(models.Model):
@@ -204,7 +245,7 @@ class WorkShopVehiclesColor(models.Model):
     _name = 'workshop.vehicles.color'
     _description = 'Vehicles Color'
 
-    color = fields.Char('Color')
+    name = fields.Char('Color')
 
 
 class WorkShopInvoice(models.Model):

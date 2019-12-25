@@ -22,3 +22,6 @@ access_workshop_vehicles_color,workshop.vehicles.color,workshop.model_workshop_v
 
 access_spare_parts_workshop_line,workshop.spare.parts.line,workshop.model_workshop_spare_parts_line,base.group_user,1,1,1,1
 access_repair_workshop_line,workshop.repair.line,workshop.model_workshop_repair_line,base.group_user,1,1,1,1
+
+access_repair_order_workshop_line,repair.order.repair.line,workshop.model_repair_order_repair_line,base.group_user,1,1,1,1
+access_repair_order_spare_parts_workshop_line,repair.order.spare.parts.line,workshop.model_repair_order_spare_parts_line,base.group_user,1,1,1,1

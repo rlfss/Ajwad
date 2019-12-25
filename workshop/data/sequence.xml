@@ -9,5 +9,12 @@
             <field name="padding">5</field>
         </record>
 
+        <record id="seq_repair" model="ir.sequence">
+            <field name="name">Repair Orders</field>
+            <field name="code">repair</field>
+            <field name="prefix">RPO/</field>
+            <field name="padding">5</field>
+        </record>
+
     </data>
 </odoo>
