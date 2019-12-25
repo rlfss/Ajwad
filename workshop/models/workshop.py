@@ -137,14 +137,15 @@ class WorkShopRepairLine(models.Model):
 
     @api.onchange('product_id')
     def _prepare_line(self):
-
+        
         res = {}
         selected = []
         technicians = self.env['workshop.technicians'].search([])
         for tech in technicians:
-            if tech.name == self.product_id.work_center.technicians.name:
-                selected.append(tech.name)
-        res.update({'domain':{'technicians':[('name','=',list(set(selected)))],}})
+            for techperson in self.product_id.work_center.technicians:
+                if tech.name == techperson.name:
+                    selected.append(tech.name)
+            res.update({'domain':{'technicians':[('name','=',list(set(selected)))],}})
 
 
         for line in self:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
+<!-- Repair Orders Form -->
         <record id="view_repair_order_form" model="ir.ui.view">
             <field name="name">Repair Order</field>
             <field name="model">workshop.repair</field>
@@ -99,6 +99,90 @@
             </field>
         </record>
 
+<!-- Work Orders Form -->
+        <record id="view_work_order_form" model="ir.ui.view">
+            <field name="name">Work Order</field>
+            <field name="model">workshop.work.orders</field>
+            <field name="arch" type="xml">
+                <form string="Work Order">
+                    <sheet>
+                        <group>
+                            <div class="oe_title">
+                                <h1>
+                                    <field name="name" readonly="1"/>
+                                </h1>
+                            </div>
+                        </group>
+
+                        <group>
+                            <group>
+                                <div style="width:95%;">
+                                <h2>Vehicle Information</h2>
+                                <br/>
+                                <field name="vehicle"/>
+                                </div>
+                                <group>
+                                    <field name="make"/>
+                                    <field name="model"/>
+                                    <field name="color"/>
+                                    <field name="year"/>
+                                </group>
+                                <group>
+                                    <field name="fuel_type"/>
+                                    <field name="odometer"/>
+                                    <field name="liscence_plate"/>
+                                    <field name="last_owner"/>
+                                    <field name="vin"/>
+                                    <field name="work_center"/>
+                                </group>
+                            </group>
+                            <group>
+                                <h2>Customer Information</h2>
+                                <br/>
+                                <field name="customer"/>
+                                <field name="adress"/>
+                                <field name="phone"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Notes">
+                                <h2>Customer Notes</h2>
+                                <br/>
+                                <field name="customer_note"/>
+                                <h2>Technical Notes</h2>
+                                <br/>
+                                <field name="tecnical_note"/>
+                            </page>
+
+                            <page string="Repair Services">
+                                <field name="work_order_services">
+                                <tree string="Spare Parts" editable="bottom">
+
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name = "service_duration" sum="Total Service Duration" widget="monetary" readonly="1" force_save="1"/>
+                                <field name = "analytic_account"/>
+                                <field name = "technicians"/>                               
+                                <field name = "product_uom_qty"/>
+                                <field name = "qty_delivered"/>
+                                </tree>
+                                </field>
+                                <div class="oe_clear"/>
+                                
+                            </page>
+                    </notebook>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+<!-- Repair Orders Tree -->
          <record id="view_repair_order_tree" model="ir.ui.view">
             <field name="name">Repair Orders</field>
             <field name="model">workshop.repair</field>
@@ -107,6 +191,22 @@
                     <field name="name"/>
                     <field name="make"/>
                     <field name="model"/>
+                    <field name="year"/>
+                    <field name="customer"/>
+                </tree>
+            </field>
+        </record>
+
+<!-- Work Orders Tree -->
+         <record id="view_work_order_tree" model="ir.ui.view">
+            <field name="name">Work Orders</field>
+            <field name="model">workshop.work.orders</field>
+            <field name="arch" type="xml">
+                <tree string="City">
+                    <field name="name"/>
+                    <field name="make"/>
+                    <field name="model"/>
+                    <field name="work_center"/>
                     <field name="year"/>
                     <field name="customer"/>
                 </tree>

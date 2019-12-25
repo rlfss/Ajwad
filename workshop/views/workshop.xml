@@ -52,6 +52,7 @@
             </field>
         </record>
 
+<!-- Vehicles Tree -->
          <record id="view_workshop_vehicles_tree" model="ir.ui.view">
             <field name="name">Vehicles</field>
             <field name="model">workshop.vehicles</field>
@@ -65,7 +66,7 @@
             </field>
         </record>
 
-        <!-- Vehicles Form -->
+        <!-- Workshop Order Form -->
         <record id="view_workshop_order_form" model="ir.ui.view">
             <field name="name">Vehicles</field>
             <field name="model">workshop</field>
@@ -191,6 +192,8 @@
             </field>
         </record>
 
+
+<!-- Workshop Order Tree -->
          <record id="view_workshop_order_tree" model="ir.ui.view">
             <field name="name">WorkShop Orders</field>
             <field name="model">workshop</field>
@@ -204,6 +207,9 @@
                 </tree>
             </field>
         </record>
+
+
+
 
         <record id="action_workshop" model="ir.actions.act_window">
             <field name="name">WorkShop Orders</field>

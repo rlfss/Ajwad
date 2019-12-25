@@ -46,32 +46,6 @@ class WorkShopRepair(models.Model):
     repair_order_services = fields.One2many('repair.order.repair.line','repair_line_id', string='Repair Services')
     repair_spare_parts = fields.One2many('repair.order.spare.parts.line', 'spare_parts_line_id', string='Spare Parts')
 
-    # amount_untaxed = fields.Float(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all', track_visibility='onchange', track_sequence=5)
-    # amount_tax = fields.Float(string='Taxes', store=True, readonly=True, compute='_amount_all')
-    # amount_total_spare = fields.Float(string='Total Spare Parts', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
-    # amount_total_repair = fields.Float(string='Total Services', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
-    # amount_total_order = fields.Float(string='Total Order', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
-
-    # @api.depends('spare_parts.price_subtotal','repair_services.price_subtotal')
-    # def _amount_all(self):
-    #     """
-    #     Compute the total amounts of the SO.
-    #     """
-    #     for order in self:
-    #         amount_untaxed_spare = amount_tax = 0.0
-    #         amount_untaxed_repair = amount_tax = 0.0
-    #         for line in order.spare_parts:
-    #             amount_untaxed_spare += line.price_subtotal
-    #         for line in order.repair_services:
-    #             amount_untaxed_repair += line.price_subtotal
-
-    #         amount_total_order = amount_untaxed_spare + amount_untaxed_repair
-    #         order.update({
-    #             'amount_total_spare': amount_untaxed_spare + amount_tax,
-    #             'amount_total_repair': amount_untaxed_repair + amount_tax,
-    #             'amount_total_order': amount_total_order,
-    #         })
-
     @api.model
     def create(self, vals):
         if vals.get('name', _('New')) == _('New'):
@@ -93,19 +67,6 @@ class RepairOrderSparePartsLine(models.Model):
     qty_delivered = fields.Float('Delivered Quantity', copy=False , store=True, digits=dp.get_precision('Product Unit of Measure'), default=0.0)
     qty_invoiced = fields.Float(string='Invoiced Quantity', store=True, readonly=True, digits=dp.get_precision('Product Unit of Measure'))
     analytic_account = fields.Many2one('account.analytic.account', string='Analytic Account')
-    
-
-    # @api.depends('product_uom_qty', 'price_unit', 'tax_id')
-    # def _compute_amount(self):
-    #     """
-    #     Compute the amounts of the SO line.
-    #     """
-    #     for line in self:
-    #         price = line.price_unit
-    #         taxes = line.tax_id.compute_all(price, line.spare_parts_line_id.currency_id, line.product_uom_qty)
-    #         line.update({
-    #             'price_subtotal': taxes['total_excluded'],
-    #         })
 
     @api.onchange('product_id')
     def _prepare_line(self):
@@ -133,14 +94,14 @@ class RepairOrderLine(models.Model):
 
     @api.onchange('product_id')
     def _prepare_line(self):
-
         res = {}
         selected = []
         technicians = self.env['workshop.technicians'].search([])
         for tech in technicians:
-            if tech.name == self.product_id.work_center.technicians.name:
-                selected.append(tech.name)
-        res.update({'domain':{'technicians':[('name','=',list(set(selected)))],}})
+            for techperson in self.product_id.work_center.technicians:
+                if tech.name == techperson.name:
+                    selected.append(tech.name)
+            res.update({'domain':{'technicians':[('name','=',list(set(selected)))],}})
 
 
         for line in self:
@@ -149,29 +110,91 @@ class RepairOrderLine(models.Model):
             self.service_duration = self.product_id.service_duration
 
         return res
-    
 
-    # @api.depends('product_uom_qty', 'price_unit', 'tax_id')
-    # def _compute_amount(self):
-    #     """
-    #     Compute the amounts of the SO line.
-    #     """
-    #     for line in self:
-    #         price = line.price_unit
-    #         taxes = line.tax_id.compute_all(price, line.repair_line_id.currency_id, line.product_uom_qty)
-    #         line.update({
-    #             'price_subtotal': taxes['total_excluded'],
-    #         })
 
 
 class WorkShopWorkOrders(models.Model):
     _name = 'workshop.work.orders'
     _description = 'Work Orders'
+    _inherit = ['mail.thread']
 
     name = fields.Char('Name', readonly=True , default=lambda x: str('New'))
+    vehicle = fields.Many2one('workshop.vehicles', string='Vehicle', required=True, ondelete='cascade')
+    currency_id = fields.Many2one( store=True, string='Currency', readonly=True)
+
+    make = fields.Many2one('workshop.vehicles.make', related='vehicle.make', string='Make', readonly=True)
+    model = fields.Many2one('workshop.vehicles.model', related='vehicle.model', string='Model', readonly=True)
+    color = fields.Many2one('workshop.vehicles.color', related='vehicle.color',  string='Color', readonly=True)
+
+    year = fields.Integer(string='Year', related='vehicle.year', readonly=True) 
+
+    fuel_type = fields.Selection([
+        ('petrol', 'Petrol'),
+        ('diesel', 'Diesel'),
+        ('gas', 'Gas'),
+        ('electric', 'Electric'),
+    ], related='vehicle.fuel_type', string="Fuel Type", readonly=True)
+
+    odometer = fields.Integer(string='Last Odometer', related='vehicle.odometer') 
+
+    liscence_plate = fields.Char('Liscence Plate', related='vehicle.liscence_plate', readonly=True)
+    last_owner = fields.Many2one('res.partner', related='vehicle.last_owner', string='Last Owner', readonly=True)
+    vin = fields.Char('VIN', size=17, related='vehicle.vin', readonly=True)
+
+
+    customer = fields.Many2one('res.partner', string='Customer', required=True)
+
+    adress = fields.Char('Customer Adress', related='customer.street', readonly=True)
+    phone = fields.Char('Customer Phone', related='customer.phone', readonly=True)
+
+    customer_note = fields.Text('Customer Notes')
+    tecnical_note = fields.Text('Technical Notes')
+
+    work_order_services = fields.One2many('work.order.line','repair_line_id', string='Repair Services')
+    work_center = fields.Many2one('workshop.work.centers',string='Work Center',store=True)
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', _('New')) == _('New'):
+            vals['name'] = self.env['ir.sequence'].next_by_code('workorders') or _('New')                
+            result = super(WorkShopWorkOrders, self).create(vals)
+            return result
 
 
 
+
+class WorkOrderLine(models.Model):
+    _name = 'work.order.line'
+    _description = 'Work Order Line'
+    
+    repair_line_id = fields.Many2one('workshop.work.orders', string='Service Line Reference')
+    product_id = fields.Many2one('product.product', string='Product', required=True, domain=[('is_repair_services','=',True)], change_default=True, ondelete='restrict')
+    name = fields.Text(string='Description')
+    product_uom_qty = fields.Float(string='Ordered Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True, default=1.0)
+    qty_delivered = fields.Float('Delivered Quantity', copy=False , store=True, digits=dp.get_precision('Product Unit of Measure'), default=0.0)
+    qty_invoiced = fields.Float(string='Invoiced Quantity', store=True, readonly=True, digits=dp.get_precision('Product Unit of Measure'))
+    service_duration = fields.Float(string='Service Duration',store=True)
+    analytic_account = fields.Many2one('account.analytic.account', string='Analytic Account')
+    technicians = fields.Many2one('workshop.technicians', string='Technicians')
+
+
+    @api.onchange('product_id')
+    def _prepare_line(self):
+        res = {}
+        selected = []
+        technicians = self.env['workshop.technicians'].search([])
+        for tech in technicians:
+            for techperson in self.product_id.work_center.technicians:
+                if tech.name == techperson.name:
+                    selected.append(tech.name)
+            res.update({'domain':{'technicians':[('name','=',list(set(selected)))],}})
+
+
+        for line in self:
+            self.name = self.product_id.name
+            self.service_duration = self.product_id.service_duration
+
+        return res
 
 
 class WorkShopTechnicians(models.Model):
