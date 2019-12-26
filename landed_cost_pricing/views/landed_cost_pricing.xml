@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+    <record id="stock_landed_cost_form_inherit" model="ir.ui.view">
+        <field name="name">stock.landed.cost.form</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+        <field name="arch" type="xml">
+
+
+
+            <xpath expr="//field[@name='cost_lines']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='valuation_adjustment_lines']" position="replace">
+            </xpath>
+            <xpath expr="//group[hasclass('oe_subtotal_footer')]" position="replace">
+            </xpath>
+            <xpath expr="//div[hasclass('oe_clear')]" position="replace">
+            </xpath>
+             <xpath expr="//p[hasclass('oe_grey')]" position="replace">
+            </xpath>
+            <xpath expr="//separator[1]" position="replace">
+            </xpath>
+            <xpath expr="//separator" position="replace">
+            </xpath>
+
+
+
+
+
+
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+
+                    <page string="Cost Lines">
+                        <p class="oe_grey">
+                            Landed cost are computed based on the purchase unit of measure.
+                        </p>
+                        <field name="cost_lines">
+                            <form string="Cost Lines">
+                                <group>
+                                    <group>
+                                        <field name="product_id"
+                                            domain="[('landed_cost_ok', '=', True)]"
+                                            context="{'default_landed_cost_ok': True, 'form_view_ref':'stock_landed_costs.view_stock_landed_cost_type_form'}"/>
+                                        <field name="price_unit"/>
+                                    </group>
+                                    <group>
+                                        <field name="split_method"/>
+                                        <field name="account_id"/>
+                                    </group>
+                                </group>
+                                <label for="name"/>
+                                <field name="name"/>
+                            </form>
+                            <tree string="Cost Lines" editable="bottom">
+                                <field name="product_id"
+                                    domain="[('landed_cost_ok', '=', True)]"
+                                    context="{'default_landed_cost_ok': True, 'default_type': 'service',  'form_view_ref':'stock_landed_costs.view_stock_landed_cost_type_form'}"/>
+                                <field name="name"/>
+                                <field name="account_id"/>
+                                <field name="split_method"/>
+                                <field name="price_unit"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                    <page string="Valuation Adjustments">
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="amount_total" widget="monetary"/>
+                            <button colspan="2" name="compute_landed_cost" string="Compute" type="object" class="oe_right btn-secondary" states='draft'/>
+                        </group>
+                        <field name="valuation_adjustment_lines">
+                            <form string="Valuation Adjustments">
+                                <group>
+                                    <group>
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                    </group>
+                                    <group>
+                                        <field name="former_cost"/>
+                                        <field name="additional_landed_cost"/>
+                                    </group>
+                                </group>
+                            </form>
+                            <tree string="Valuation Adjustments" editable="bottom" create="0">
+                                <field name="cost_line_id" readonly="1"/>
+                                <field name="product_id" readonly="1"/>
+                                <field name="weight" readonly="1"/>
+                                <field name="volume" readonly="1"/>
+                                <field name="quantity" readonly="1"/>
+                                <field name="former_cost_per_unit" readonly="1" widget="monetary"/>
+                                <field name="former_cost" readonly="1"/>
+                                <field name="additional_landed_cost"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                    <page string="Pricing">
+                        <group class="oe_subtotal_footer oe_right">
+                            <button colspan="2" name="compute_landed_pricing_cost" string="Compute Pricing" type="object" class="oe_right btn-secondary"/>
+                        </group>
+                        <field name="landed_cost_pricing">
+                            <form string="Pricing">
+                                <group>
+                                    <group>
+                                        <field name="product_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="former_cost"/>
+                                        <field name="additional_landed_cost"/>
+                                    </group>
+                                </group>
+                            </form>
+                            <tree string="Pricing" editable="bottom" create="0">
+                                <field name="product_id" readonly="1"/>
+                                <field name="former_cost" readonly="1"/>
+                                <field name="additional_landed_cost"  readonly="1"/>
+                                <field name="final_cost"  readonly="1"/>
+                                <field name="sale_price"/>
+                                <field name="margin"/>
+                                <field name="margin_percent"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                </notebook>
+
+
+
+
+
+
+            </xpath>
+        </field>
+     </record>
+
+
+    </data>
+</odoo>
