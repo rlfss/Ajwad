@@ -15,8 +15,8 @@ class LandedCostPricing(models.Model):
     additional_landed_cost = fields.Float('Additional Landed Cost',digits=dp.get_precision('Product Price'))
     final_cost = fields.Float('New Cost', digits=0, store=True)
     sale_price = fields.Float('Sale Price', digits=0, store=True)
-    margin = fields.Float('Margin', digits=0, store=True, compute='_compute_margin')
-    margin_percent = fields.Float('Margin Percent', digits=0, store=True, compute='_compute_margin')
+    margin = fields.Float('Margin', digits=0, store=True)
+    margin_percent = fields.Float('Margin Percent', digits=0, store=True)
 
 
 
