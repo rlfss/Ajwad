@@ -25,12 +25,13 @@ class LandedCost(models.Model):
                 product = move.product_id.id
                 sale_price = move.product_id.list_price 
                 quantity = move.product_qty
-                former_cost = adj.former_cost_per_unit
+                former_cost = move.value
                 if adj.product_id.id == product:
                     addcost = adj.additional_landed_cost
                     additionalcost += tools.float_round(addcost, precision_digits=digits[1]) if digits else addcost
                     newadditi = additionalcost / quantity
                     final_cost = newadditi + former_cost
-            vals = {'cost_id': self.id, 'product_id': product, 'former_cost': former_cost,'additional_landed_cost': newadditi,'final_cost': final_cost,'sale_price': sale_price}
+                    newformer_cost = former_cost / quantity
+            vals = {'cost_id': self.id, 'product_id': product, 'former_cost': newformer_cost,'additional_landed_cost': newadditi,'final_cost': final_cost,'sale_price': sale_price}
             return_obj = self.env['landed.cost.pricing'].create(vals)
             print(return_obj)
