@@ -27,6 +27,19 @@ class LandedCostPricing(models.Model):
                 line.margin = line.sale_price - line.final_cost
                 line.margin_percent = ((line.sale_price - line.final_cost) / line.sale_price) * 100
 
+    @api.onchange('margin')
+    def _compute_sale_price(self):
+        for line in self:
+            if line.margin > 0 :
+                line.sale_price = line.final_cost + line.margin
+                line.margin_percent = (line.margin / (line.final_cost + line.margin)) * 100
+
+    @api.onchange('margin_percent')
+    def _compute_margin_percent(self):
+        for line in self:
+            if line.margin_percent > 0 :
+                line.margin = (line.final_cost * line.margin_percent ) / ( 100 - line.margin_percent)
+                line.sale_price = line.final_cost + ((line.final_cost * line.margin_percent ) / ( 100 - line.margin_percent))
 
 # class StockLandedCost(models.Model):
 #     _inherit = "stock.landed.cost"
