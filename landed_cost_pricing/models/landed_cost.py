@@ -25,7 +25,7 @@ class LandedCost(models.Model):
                 product = move.product_id.id
                 sale_price = move.product_id.list_price 
                 quantity = move.product_qty
-                former_cost = move.value
+                former_cost = move.former_cost_per_unit
                 if adj.product_id.id == product:
                     addcost = adj.additional_landed_cost
                     additionalcost += tools.float_round(addcost, precision_digits=digits[1]) if digits else addcost
