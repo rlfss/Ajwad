@@ -30,8 +30,8 @@ class LandedCost(models.Model):
                     addcost = adj.additional_landed_cost
                     additionalcost += tools.float_round(addcost, precision_digits=digits[1]) if digits else addcost
                     newadditi = additionalcost / quantity
-                    final_cost = newadditi + former_cost
                     newformer_cost = former_cost / quantity
+                    final_cost = newadditi + newformer_cost
             vals = {'cost_id': self.id, 'product_id': product, 'former_cost': newformer_cost,'additional_landed_cost': newadditi,'final_cost': final_cost,'sale_price': sale_price}
             return_obj = self.env['landed.cost.pricing'].create(vals)
             print(return_obj)
