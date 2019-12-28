@@ -42,7 +42,7 @@ class LandedCost(models.Model):
     def compute_landed_pricing_cost_evaluation(self):
         PricLines = self.env['landed.cost.pricing.evaluation']
         PricLines.search([('cost_id', 'in', self.ids)]).unlink()
-        AdjustementLines = self.env['stock.valuation.adjustment.lines'].search([('cost_id', 'in', self.ids)])
+        AdjustementLines = self.env['landed.cost.pricing'].search([('cost_id', 'in', self.ids)])
         digits = dp.get_precision('Product Price')(self._cr)
         new_cost = 0.0
         new_qty = 0.0
