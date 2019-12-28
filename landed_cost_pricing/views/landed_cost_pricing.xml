@@ -126,9 +126,38 @@
                             </tree>
                         </field>
                     </page>
+                    <page string="Prices Evaluation">
+
+                        <group class="oe_subtotal_footer oe_right">
+                            <button colspan="2" name="compute_landed_pricing_cost_evaluation" string="Compute Prices Evaluation" type="object" class="oe_right btn-secondary"/>
+                        </group>
+                        <field name="evaluation_cost_pricing">
+                            <form string="Prices Evaluation">
+                                <group>
+                                    <group>
+                                        <field name="product_id"/>
+                                    </group>
+                                </group>
+                            </form>
+                            <tree string="Prices Evaluation" editable="bottom" create="0">
+                                <field name="product_id" readonly="1"/>
+                                <field name="new_cost" readonly="1"/>
+                                <field name="new_qty"  readonly="1"/>
+                                <field name="old_cost"  readonly="1"/>
+                                <field name="old_qty" readonly="1"/>
+                                <field name="onh_qty" readonly="1"/>
+                                <field name="avg_cost" readonly="1"/>
+                                <field name="new_sale_price" readonly="1"/>
+                                <field name="new_margin" readonly="1"/>
+                                <field name="new_margin_percent" readonly="1"/>
+                                <field name="old_sale_price" readonly="1"/>
+                                <field name="old_margin" readonly="1"/>
+                                <field name="old_margin_percent" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
 
                 </notebook>
-
 
 
 
