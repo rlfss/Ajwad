@@ -35,3 +35,11 @@ class SaleOrderLine(models.Model):
 	        else:
 	            raise ValidationError('Discount Value Greater Than Discount Limit' + ' ' + str(discount_limit))
         return lines
+
+    @api.onchange('discount')
+    def _discount(self):
+        for line in self:
+        	ginv = line.order_id
+        	discount_limit = ginv.team_id.discount_limit
+        	if line.discount > discount_limit:
+	            raise ValidationError('Discount Value Greater Than Discount Limit' + ' ' + str(discount_limit))
