@@ -9,7 +9,7 @@ class PurchaseCustomOrderLine(models.Model):
     _inherit = 'sale.order'
 
     global_discount = fields.Float(string='Global Discount', digits=dp.get_precision('Discount'), default=0.0)
-    global_discount_type = fields.Selection([('fixed', 'Fixed'),('percent ', 'Percent ')], string="Discount Type")
+    global_discount_type = fields.Selection([('fixed', 'Fixed'),('percent', 'Percent ')], string="Discount Type")
     total_global_discount  = fields.Float(string='Global Discount Total', digits=dp.get_precision('Discount'), default=0.0)
     total_undiscount = fields.Float(string='UnDiscounted Total', digits=dp.get_precision('Discount'), default=0.0, compute='_total_undiscount')
 
@@ -51,10 +51,10 @@ class PurchaseCustomOrderLine(models.Model):
                 self.total_global_discount = self.global_discount
                 self.amount_total = amount_total - self.global_discount
             else:
+                raise ValidationError('Discount Value Greater Than Discount Limit')    
                 self.global_discount = 0
                 self.total_global_discount = 0
-                raise ValidationError('Discount Value Greater Than Discount Limit')    
-                
+
                 
         if self.global_discount_type == 'percent':
             discount = amount_total * self.global_discount / 100
@@ -64,7 +64,7 @@ class PurchaseCustomOrderLine(models.Model):
             if alldic <= discount_limit_total:
                 self.amount_total = amount_total - discount
             else:
+                raise ValidationError('Discount Value Greater Than Discount Limit')
                 self.global_discount = 0
                 self.total_global_discount = 0
-                raise ValidationError('Discount Value Greater Than Discount Limit')
-                
+
