@@ -6,10 +6,10 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='amount_untaxed']" position="before">
-                <field name="total_undiscount"/>
-                <field name="global_discount_type"/>
-                <field name="global_discount"/>
-                <field name="total_global_discount"/>
+                <field name="total_undiscount" groups="sale.group_discount_per_so_line"/>
+                <field name="global_discount_type" groups="sale.group_discount_per_so_line"/>
+                <field name="global_discount" groups="sale.group_discount_per_so_line"/>
+                <field name="total_global_discount" groups="sale.group_discount_per_so_line"/>
             </xpath>
         </field>
      </record>
