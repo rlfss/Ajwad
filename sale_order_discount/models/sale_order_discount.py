@@ -15,7 +15,7 @@ class PurchaseCustomOrderLine(models.Model):
 
     def _total_undiscount(self):
         for order in self:
-            for line in order:
+            for line in order.order_line:
                 order.total_undiscount += line.price_unit
             
 
@@ -29,7 +29,7 @@ class PurchaseCustomOrderLine(models.Model):
     def _discount_amount_total(self):
         for order in self:
             total_undiscount = 0.0
-            for line in order:
+            for line in order.order_line:
                 total_undiscount += line.price_unit
             discount_limit = order.team_id.discount_limit
             discount_limit_total = total_undiscount  * discount_limit / 100
