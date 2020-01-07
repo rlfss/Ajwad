@@ -3,7 +3,7 @@
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, SUPERUSER_ID, _
 from odoo.addons import decimal_precision as dp
-
+from odoo.exceptions import UserError, ValidationError
 
 class PurchaseCustomOrderLine(models.Model):
     _inherit = 'sale.order'
@@ -37,11 +37,13 @@ class PurchaseCustomOrderLine(models.Model):
             if order.global_discount_type == 'fixed':
                 if total_undiscount - order.amount_total < order.global_discount:
                     order.total_global_discount = order.global_discount
+                    order.amount_total = sum(order.order_line.mapped('price_subtotal')) - order.global_discount
                 else:
                     raise ValidationError('Discount Value Greater Than Discount Limit' + ' ' + str(discount_limit_total))                
             if order.global_discount_type == 'percent':
                 discount = sum(order.order_line.mapped('price_subtotal')) * order.global_discount / 100
                 if total_undiscount - order.amount_total < discount:
                     order.total_global_discount = discount
+                    order.amount_total = sum(order.order_line.mapped('price_subtotal')) - discount
                 else:
                     raise ValidationError('Discount Value Greater Than Discount Limit' + ' ' + str(discount_limit_total))                
