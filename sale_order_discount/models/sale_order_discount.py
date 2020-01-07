@@ -10,7 +10,7 @@ class PurchaseCustomOrderLine(models.Model):
 
     global_discount = fields.Float(string='Global Discount', digits=dp.get_precision('Discount'), default=0.0)
     global_discount_type = fields.Selection([('fixed', 'Fixed'),('percent', 'Percent ')], string="Discount Type")
-    total_global_discount  = fields.Float(string='Global Discount Total', digits=dp.get_precision('Discount'), default=0.0)
+    total_global_discount  = fields.Float(string='Global Discount Total', digits=dp.get_precision('Discount'), default=0.0, readonly=True)
     total_undiscount = fields.Float(string='UnDiscounted Total', digits=dp.get_precision('Discount'), default=0.0, compute='_total_undiscount')
 
     def _total_undiscount(self):
@@ -60,6 +60,7 @@ class PurchaseCustomOrderLine(models.Model):
             discount = amount_total * self.global_discount / 100
             oldisc = total_undiscount - amount_total
             alldic = oldisc + discount
+            self.total_global_discount = discount
             if alldic <= discount_limit_total:
                 self.amount_total = amount_total - discount
             else:
