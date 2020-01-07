@@ -11,7 +11,7 @@ class PurchaseCustomOrderLine(models.Model):
     global_discount = fields.Float(string='Global Discount', digits=dp.get_precision('Discount'), default=0.0)
     global_discount_type = fields.Selection([('fixed', 'Fixed'),('percent ', 'Percent ')], string="Discount Type")
     total_global_discount  = fields.Float(string='Global Discount Total', digits=dp.get_precision('Discount'), default=0.0)
-    total_undiscount = fields.Float(string='UnDiscounted Total', digits=dp.get_precision('Discount'), default=0.0)
+    total_undiscount = fields.Float(string='UnDiscounted Total', digits=dp.get_precision('Discount'), default=0.0, compute='_total_undiscount')
 
     def _total_undiscount(self):
         for order in self:
