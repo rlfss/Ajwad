@@ -14,9 +14,9 @@
 
 
              <label for="global_discount"/>
-             <div attrs="{'invisible':[('global_discount_type','=','fixed')]}">
-             <field name="global_discount" class="oe_inline" attrs="{'invisible':[('global_discount_type','=','fixed')]}"/>
-             <label string="%" class="oe_inline" attrs="{'invisible':[('global_discount_type','=','fixed')]}"/>
+             <div>
+             <field name="global_discount" attrs="{'invisible':[('global_discount_type','=','fixed')]}"/>
+             <label string="%" attrs="{'invisible':[('global_discount_type','=','fixed')]}"/>
              </div>
              <field name="global_discount" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'invisible':[('global_discount_type','=','percent')]}"/>
 
