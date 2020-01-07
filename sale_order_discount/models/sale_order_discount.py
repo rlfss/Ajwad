@@ -21,6 +21,7 @@ class PurchaseCustomOrderLine(models.Model):
 
     @api.onchange('global_discount_type')
     def _discount_type(self):
+        amount_total = 0.0
         self.global_discount = 0
         self.total_global_discount = 0
         for line in self.order_line:
