@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from . import purchase_custom_line
+from . import sale_order_discount
