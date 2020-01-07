@@ -33,18 +33,20 @@ class PurchaseCustomOrderLine(models.Model):
         discount_limit = self.team_id.discount_limit
         discount_limit_total = total_undiscount  * discount_limit / 100
 
-        if self.global_discount_type == 'fixed' and self.global_discount > 0:
-            if total_undiscount - self.amount_total < self.global_discount:
+        if self.global_discount_type == 'fixed':
+            discount = total_undiscount - self.amount_total
+            alldiscount = discount + self.global_discount
+            if  alldiscount <= discount_limit_total:
                 self.total_global_discount = self.global_discount
                 self.amount_total = self.amount_total - self.global_discount
             else:
                 self.global_discount = 0
                 self.total_global_discount = 0
                 raise ValidationError('Discount Value Greater Than Discount Limit')                
-        if self.global_discount_type == 'percent' and self.global_discount > 0:
-            discount = sum(self.order_line.mapped('price_subtotal')) * self.global_discount / 100
-            if total_undiscount - self.amount_total < discount:
-                self.total_global_discount = discount
+        if self.global_discount_type == 'percent':
+            discount = self.amount_total * self.global_discount / 100
+            oldisc = total_undiscount - self.amount_total
+            if  oldisc + discount <= discount_limit_total:
                 self.amount_total = self.amount_total - discount
             else:
                 self.global_discount = 0
