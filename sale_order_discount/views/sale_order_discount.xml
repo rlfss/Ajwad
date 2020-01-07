@@ -8,15 +8,10 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='sale_total']" position="after">
-            <group class="oe_subtotal_footer oe_left" colspan="2" name="sale_discount">
-                <field name="global_discount_type"/>
-                <label for="global_discount"/>
-                <div>
-                <field name="global_discount" attrs="{'invisible':[('global_discount_type','=','fixed')]}"/>
-                <label string="%" attrs="{'invisible':[('global_discount_type','=','fixed')]}"/>
-                </div>
-                <field name="global_discount" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'invisible':[('global_discount_type','=','percent')]}"/>
-            </group>
+                <group class="oe_subtotal_footer oe_left" colspan="2" name="sale_discount">
+                    <field name="global_discount_type"/>
+                    <field for="global_discount"/>
+                </group>
             </xpath>
         </field>
      </record>
