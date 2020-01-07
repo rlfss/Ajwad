@@ -57,6 +57,7 @@ class PurchaseCustomOrderLine(models.Model):
             discount = amount_total * self.global_discount / 100
             oldisc = total_undiscount - amount_total
             alldic = oldisc + discount
+            raise ValidationError('discount ' + discount + ' oldisc '+ oldisc +  ' alldic ' + alldic )
             if alldic <= discount_limit_total:
                 self.amount_total = amount_total - discount
             else:
