@@ -5,17 +5,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[hasclass('oe_subtotal_footer')]" position="before">   
-                <div class="oe_subtotal_footer oe_left" colspan="2" name="sale_discount">
-                    <label for="global_discount_type"/>
-                    <field name="global_discount_type"/>
-                    <label for="global_discount"/>
-                    <div>
-                    <field name="global_discount" class="oe_inline" attrs="{'invisible':[('global_discount_type','=','fixed')]}"/>
-                    <label for="" string="%" class="oe_inline" attrs="{'invisible':[('global_discount_type','=','fixed')]}"/>
-                    </div>
-                    <field name="global_discount" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'invisible':[('global_discount_type','=','percent')]}"/>
-                </div>
+            <xpath expr="//field[@name='amount_untaxed']" position="before">
+                <field name="global_discount_type"/>
+                <field name="global_discount"/>
             </xpath>
         </field>
      </record>
