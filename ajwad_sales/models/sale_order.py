@@ -38,7 +38,7 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('discount')
     def _discount(self):
-        for line in lines:
+        for line in self:
         	ginv = line.order_id
         	discount_limit = ginv.team_id.discount_limit
         	if line.discount > discount_limit:
