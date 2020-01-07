@@ -28,26 +28,37 @@ class PurchaseCustomOrderLine(models.Model):
     @api.onchange('global_discount')
     def _discount_amount_total(self):
         total_undiscount = 0.0
+        amount_total = 0.0
+        
         for line in self.order_line:
             total_undiscount += line.price_unit
+            
+        for line in self.order_line:
+            amount_total += line.price_subtotal
+
+
         discount_limit = self.team_id.discount_limit
         discount_limit_total = total_undiscount  * discount_limit / 100
-
+        
+        
         if self.global_discount_type == 'fixed':
-            discount = total_undiscount - self.amount_total
+            discount = total_undiscount - amount_total
             alldiscount = discount + self.global_discount
             if  alldiscount <= discount_limit_total:
                 self.total_global_discount = self.global_discount
-                self.amount_total = self.amount_total - self.global_discount
+                self.amount_total = amount_total - self.global_discount
             else:
                 self.global_discount = 0
                 self.total_global_discount = 0
-                raise ValidationError('Discount Value Greater Than Discount Limit')                
+                raise ValidationError('Discount Value Greater Than Discount Limit')    
+                
+                
         if self.global_discount_type == 'percent':
-            discount = self.amount_total * self.global_discount / 100
-            oldisc = total_undiscount - self.amount_total
-            if  oldisc + discount <= discount_limit_total:
-                self.amount_total = self.amount_total - discount
+            discount = amount_total * self.global_discount / 100
+            oldisc = total_undiscount - amount_total
+            alldic = oldisc + discount
+            if alldic <= discount_limit_total:
+                self.amount_total = amount_total - discount
             else:
                 self.global_discount = 0
                 self.total_global_discount = 0
