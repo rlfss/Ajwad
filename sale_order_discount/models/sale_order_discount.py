@@ -38,6 +38,8 @@ class PurchaseCustomOrderLine(models.Model):
                 self.total_global_discount = self.global_discount
                 self.amount_total = self.amount_total - self.global_discount
             else:
+                self.global_discount = 0
+                self.total_global_discount = 0
                 raise ValidationError('Discount Value Greater Than Discount Limit')                
         if self.global_discount_type == 'percent' and self.global_discount > 0:
             discount = sum(self.order_line.mapped('price_subtotal')) * self.global_discount / 100
@@ -45,4 +47,7 @@ class PurchaseCustomOrderLine(models.Model):
                 self.total_global_discount = discount
                 self.amount_total = self.amount_total - discount
             else:
-                raise ValidationError('Discount Value Greater Than Discount Limit')                
+                self.global_discount = 0
+                self.total_global_discount = 0
+                raise ValidationError('Discount Value Greater Than Discount Limit')
+                
