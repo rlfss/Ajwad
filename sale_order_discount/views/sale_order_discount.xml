@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-
-    <record id="view_order_form_view_inherit" model="ir.ui.view">
+    <record id="view_order_form_view_global_discount" model="ir.ui.view">
         <field name="name">sale.order.form</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='sale_total']" position="after">
+            <xpath expr="//group[@name='sale_total']" position="after">   
                 <group class="oe_subtotal_footer oe_left" colspan="2" name="sale_discount">
                     <field name="global_discount_type"/>
                     <field for="global_discount"/>
@@ -15,7 +13,4 @@
             </xpath>
         </field>
      </record>
-
-
-    </data>
 </odoo>
