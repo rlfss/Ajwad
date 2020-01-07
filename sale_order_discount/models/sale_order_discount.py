@@ -16,7 +16,7 @@ class PurchaseCustomOrderLine(models.Model):
     def _total_undiscount(self):
         for order in self:
             for line in order.order_line:
-                order.total_undiscount += line.price_unit
+                order.total_undiscount += line.price_unit * line.product_uom_qty
             
 
     @api.onchange('global_discount_type')
@@ -34,7 +34,7 @@ class PurchaseCustomOrderLine(models.Model):
         amount_total = 0.0
         
         for line in self.order_line:
-            total_undiscount += line.price_unit
+            total_undiscount += line.price_unit * line.product_uom_qty
             
         for line in self.order_line:
             amount_total += line.price_subtotal
