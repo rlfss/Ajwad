@@ -9,6 +9,7 @@
                 <field name="total_undiscount"/>
                 <field name="global_discount_type"/>
                 <field name="global_discount"/>
+                <field name="total_global_discount"/>
             </xpath>
         </field>
      </record>
