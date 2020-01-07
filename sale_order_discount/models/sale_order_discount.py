@@ -21,30 +21,28 @@ class PurchaseCustomOrderLine(models.Model):
 
     @api.onchange('global_discount_type')
     def _discount_type(self):
-        for order in self:
-            order.global_discount = 0
-            order.total_global_discount = 0
+        self.global_discount = 0
+        self.total_global_discount = 0
             
 
     @api.onchange('global_discount')
     def _discount_amount_total(self):
-        for order in self:
-            total_undiscount = 0.0
-            for line in order.order_line:
-                total_undiscount += line.price_unit
-            discount_limit = order.team_id.discount_limit
-            discount_limit_total = total_undiscount  * discount_limit / 100
-            
-            if order.global_discount_type == 'fixed':
-                if total_undiscount - order.amount_total < order.global_discount:
-                    order.total_global_discount = order.global_discount
-                    order.amount_total = order.amount_total - order.global_discount
-                else:
-                    raise ValidationError('Discount Value Greater Than Discount Limit')                
-            if order.global_discount_type == 'percent':
-                discount = sum(order.order_line.mapped('price_subtotal')) * order.global_discount / 100
-                if total_undiscount - order.amount_total < discount:
-                    order.total_global_discount = discount
-                    order.amount_total = order.amount_total - discount
-                else:
-                    raise ValidationError('Discount Value Greater Than Discount Limit')                
+        total_undiscount = 0.0
+        for line in self.order_line:
+            total_undiscount += line.price_unit
+        discount_limit = self.team_id.discount_limit
+        discount_limit_total = total_undiscount  * discount_limit / 100
+
+        if self.global_discount_type == 'fixed':
+            if total_undiscount - self.amount_total < self.global_discount:
+                self.total_global_discount = self.global_discount
+                self.amount_total = self.amount_total - self.global_discount
+            else:
+                raise ValidationError('Discount Value Greater Than Discount Limit')                
+        if self.global_discount_type == 'percent':
+            discount = sum(self.order_line.mapped('price_subtotal')) * self.global_discount / 100
+            if total_undiscount - self.amount_total < discount:
+                self.total_global_discount = discount
+                self.amount_total = self.amount_total - discount
+            else:
+                raise ValidationError('Discount Value Greater Than Discount Limit')                
