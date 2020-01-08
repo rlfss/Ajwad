@@ -14,7 +14,7 @@
         </field>
      </record>
 
-        <record id="action_move_lines" model="ir.actions.act_window">
+<!--         <record id="action_move_lines" model="ir.actions.act_window">
             <field name="name">stock.move.line</field>
             <field name="res_model">stock.move.line</field>
             <field name="view_type">form</field>
@@ -22,6 +22,6 @@
             <field name="domain">[]</field>
         </record>
         <menuitem action="action_move_lines" name="stock move"  id="action_move_lines_menu" sequence="6" parent="purchase.menu_purchase_root"/>
-
+ -->
     </data>
 </odoo>
