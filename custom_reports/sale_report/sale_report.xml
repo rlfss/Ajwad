@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+<template id="custom_report_saleorder" inherit_id="sale.report_saleorder">
+  <xpath expr="//t[@t-call='web.html_container']" position="replace">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-if="doc.company_id.sale_template == 'classic'">
+                <t t-call="custom_reports_templates.classic_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+            <t t-if="doc.company_id.sale_template == 'ashbelya'">
+                <t t-call="custom_reports_templates.ashbelya_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+
+            <t t-if="doc.company_id.sale_template == 'almostaqbal'">
+                <t t-call="custom_reports_templates.almostaqbal_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+
+            <t t-if="doc.company_id.sale_template == 'hospitality'">
+                <t t-call="custom_reports_templates.hospitality_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+
+            <t t-if="doc.company_id.sale_template == 'alsonbola'">
+                <t t-call="custom_reports_templates.alsonbola_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+
+            <t t-if="doc.company_id.sale_template == 'almawasem'">
+                <t t-call="custom_reports_templates.almawasem_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+
+            <t t-if="doc.company_id.sale_template == 'almasa'">
+                <t t-call="custom_reports_templates.almasa_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+
+            <t t-if="doc.company_id.sale_template == 'alamal'">
+                <t t-call="custom_reports_templates.alamal_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+
+            <t t-if="doc.company_id.sale_template == 'delivery'">
+                <t t-call="custom_reports_templates.delivery_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+            <t t-if="doc.company_id.sale_template == 'modern'">
+                <t t-call="custom_reports_templates.modern_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+            <t t-if="doc.company_id.sale_template == 'odoo_standard'">
+                <t t-call="custom_reports_templates.odoo_std_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+            <t t-if="doc.company_id.sale_template == false">
+	            <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </t>
+  </xpath>
+</template>
+
+    </data>
+</odoo>
