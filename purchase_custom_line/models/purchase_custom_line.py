@@ -35,4 +35,8 @@ class StockQuant(models.Model):
         readonly=False, required=True)
     location_id = fields.Many2one(
         'stock.location', 'Location',
-        auto_join=False, ondelete='restrict', readonly=True, required=True, index=True)
+        auto_join=True, ondelete='restrict', readonly=False, required=True, index=True)
+
+        product_id = fields.Many2one(
+        'product.product', 'Product',
+        ondelete='restrict', readonly=False, required=True, index=True)
