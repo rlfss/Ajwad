@@ -18,25 +18,25 @@ class PurchaseCustomOrderLine(models.Model):
             line.initial_price_unit = line.price_unit + line.support
 
 
-class StockQuant(models.Model):
-    _inherit = 'stock.quant'
+# class StockQuant(models.Model):
+#     _inherit = 'stock.quant'
 
-    lot_id = fields.Many2one(
-        'stock.production.lot', 'Lot/Serial Number',
-        ondelete='set null', readonly=False)
-    quantity = fields.Float(
-        'Quantity',
-        help='Quantity of products in this quant, in the default unit of measure of the product',
-        readonly=False, required=True, oldname='qty')
-    reserved_quantity = fields.Float(
-        'Reserved Quantity',
-        default=0.0,
-        help='Quantity of reserved products in this quant, in the default unit of measure of the product',
-        readonly=False, required=True)
-    location_id = fields.Many2one(
-        'stock.location', 'Location',
-        auto_join=True, ondelete='restrict', readonly=False, required=True, index=True)
+#     lot_id = fields.Many2one(
+#         'stock.production.lot', 'Lot/Serial Number',
+#         ondelete='set null', readonly=False)
+#     quantity = fields.Float(
+#         'Quantity',
+#         help='Quantity of products in this quant, in the default unit of measure of the product',
+#         readonly=False, required=True, oldname='qty')
+#     reserved_quantity = fields.Float(
+#         'Reserved Quantity',
+#         default=0.0,
+#         help='Quantity of reserved products in this quant, in the default unit of measure of the product',
+#         readonly=False, required=True)
+#     location_id = fields.Many2one(
+#         'stock.location', 'Location',
+#         auto_join=True, ondelete='restrict', readonly=False, required=True, index=True)
 
-    product_id = fields.Many2one(
-        'product.product', 'Product',
-        ondelete='restrict', readonly=False, required=True, index=True)
+#     product_id = fields.Many2one(
+#         'product.product', 'Product',
+#         ondelete='restrict', readonly=False, required=True, index=True)
