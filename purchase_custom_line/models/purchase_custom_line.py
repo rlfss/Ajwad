@@ -24,3 +24,15 @@ class StockQuant(models.Model):
     lot_id = fields.Many2one(
         'stock.production.lot', 'Lot/Serial Number',
         ondelete='set null', readonly=False)
+    quantity = fields.Float(
+        'Quantity',
+        help='Quantity of products in this quant, in the default unit of measure of the product',
+        readonly=False, required=True, oldname='qty')
+    reserved_quantity = fields.Float(
+        'Reserved Quantity',
+        default=0.0,
+        help='Quantity of reserved products in this quant, in the default unit of measure of the product',
+        readonly=False, required=True)
+    location_id = fields.Many2one(
+        'stock.location', 'Location',
+        auto_join=False, ondelete='restrict', readonly=True, required=True, index=True)
