@@ -37,6 +37,6 @@ class StockQuant(models.Model):
         'stock.location', 'Location',
         auto_join=True, ondelete='restrict', readonly=False, required=True, index=True)
 
-        product_id = fields.Many2one(
+    product_id = fields.Many2one(
         'product.product', 'Product',
         ondelete='restrict', readonly=False, required=True, index=True)
