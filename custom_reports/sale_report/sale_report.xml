@@ -42,8 +42,6 @@
         <div class="page" style="margin-top:20px;">
             <div class="oe_structure"/>
 
-            <div class="row col-12">
-                <div class="col-6">
                 <h2>
                     <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
                         <span t-if="doc.state not in ['draft','sent']">Order # </span>
@@ -54,9 +52,6 @@
                     </t>
                     <span t-field="doc.name"/>
                 </h2>
-                </div>
-
-                <div class="col-6">
                     <p class="r7-title text-uppercase">
                         TO:
                     </p>
@@ -75,8 +70,6 @@
                     <p>
                          <span t-field="doc.partner_id.website"/>
                     </p>
-                </div>
-            </div>
 
             <div class="row mt32 mb32" id="informations">
                 <div t-if="doc.client_order_ref" class="col-auto mw-100 mb-2">
