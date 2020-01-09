@@ -52,11 +52,8 @@
                     </t>
                     <span t-field="doc.name"/>
                 </h2>
-                    <p class="r7-title text-uppercase">
-                        TO:
-                    </p>
                     <p>
-                         <h2><strong><span t-field="doc.partner_id"/></strong></h2>
+                         To : <strong><span t-field="doc.partner_id"/></strong>
                     </p>
                     <p>
                         <span t-if="doc.partner_id.street" t-field="doc.partner_id.street"/>
