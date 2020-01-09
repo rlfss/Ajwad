@@ -61,19 +61,19 @@
                         TO:
                     </p>
                     <p>
-                         <h2><strong><span t-field="o.partner_shipping_id"/></strong></h2>
+                         <h2><strong><span t-field="o.partner_id"/></strong></h2>
                     </p>
                     <p>
-                        <span t-if="o.partner_shipping_id.street" t-field="o.partner_shipping_id.street"/>
+                        <span t-if="o.partner_id.street" t-field="o.partner_id.street"/>
                     </p>
                     <p>
-                         <span t-field="o.partner_shipping_id.phone"/>
+                         <span t-field="o.partner_id.phone"/>
                     </p>
                     <p>
-                        <span t-field="o.partner_shipping_id.email"/>
+                        <span t-field="o.partner_id.email"/>
                     </p>
                     <p>
-                         <span t-field="o.partner_shipping_id.website"/>
+                         <span t-field="o.partner_id.website"/>
                     </p>
                 </div>
             </div>
