@@ -42,8 +42,8 @@
         <div class="page" style="margin-top:20px;">
             <div class="oe_structure"/>
 
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row col-12">
+                <div class="col-6">
                 <h2>
                     <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
                         <span t-if="doc.state not in ['draft','sent']">Order # </span>
@@ -56,7 +56,7 @@
                 </h2>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-6">
                     <p class="r7-title text-uppercase">
                         TO:
                     </p>
