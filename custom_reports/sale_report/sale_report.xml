@@ -38,7 +38,9 @@
                 </t>
             </t>
         </t>
-        <div class="page" style="margin-top:205px; margin-bottom:150px;">
+        <div class="page">
+            <div style="padding-top:150px; padding-bottom:150px;">
+            </div>
             <div class="oe_structure"/>
 
                 <h2>
@@ -242,6 +244,8 @@
             </div>
 
             <div class="oe_structure"/>
+            <div style="padding-top:75px; padding-bottom:75px;">
+            </div>
         </div>
     </t>
         </t>
