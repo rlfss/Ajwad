@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_landed_cost_pricing,landed.cost.pricing,landed_cost_pricing.model_landed_cost_pricing,base.group_user,1,1,1,1
+access_landed_cost_pricing_evaluation,landed.cost.pricing.evaluation,landed_cost_pricing.model_landed_cost_pricing_evaluation,base.group_user,1,1,1,1
